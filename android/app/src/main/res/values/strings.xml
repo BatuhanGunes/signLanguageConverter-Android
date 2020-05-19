@@ -11,6 +11,11 @@
     </string-array>
 
     <string name="tfe_ic_device" translatable="false">Device:</string>
+    <string name="todo">TODO</string>
+    <string name="todo">TODO</string>
+    <string name="g_r_nt_den_yaz_ya">Görüntüden Yazıya</string>
+    <string name="biz_kimiz">Biz kimiz?</string>
+    <string name="yazidan_g_r_nt_ye">YAZIDAN GÖRÜNTÜYE</string>
     <string-array name="tfe_ic_devices" translatable="false">
         <item>CPU</item>
         <item>GPU</item>
