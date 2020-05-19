@@ -16,7 +16,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/SignLanguagesLabel" />
+        app:srcCompat="@drawable/sign_languages_label" />
 
     <Button
         android:id="@+id/buttonG-Y"
@@ -66,5 +66,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/SignLanguagesCover" />
+        app:srcCompat="@drawable/sign_languages_cover" />
 </androidx.constraintlayout.widget.ConstraintLayout>

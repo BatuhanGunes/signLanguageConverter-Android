@@ -8,6 +8,8 @@
       <config>
         <device id="pixel" />
         <device id="pixel_3a_xl" />
+        <device id="Nexus 6" />
+        <device id="pixel_3_xl" />
         <device id="Nexus 7" />
         <device id="Nexus 9" />
         <device id="pixel_c" />
