@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".myappview.MainActivity">
 
     <ImageView
         android:id="@+id/imageViewHeader"
@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/sign_languages_label" />
 
     <Button
-        android:id="@+id/buttonG-Y"
+        android:id="@+id/button_image_to_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="121dp"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewHeader" />
 
     <Button
-        android:id="@+id/buttonY-G"
+        android:id="@+id/button_text_to_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="121dp"
@@ -39,13 +39,13 @@
         android:layout_marginEnd="122dp"
         android:layout_marginBottom="16dp"
         android:text="@string/yazidan_g_r_nt_ye"
-        app:layout_constraintBottom_toTopOf="@+id/buttonBizKimiz"
+        app:layout_constraintBottom_toTopOf="@+id/button_about_us"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonG-Y" />
+        app:layout_constraintTop_toBottomOf="@+id/button_image_to_text" />
 
     <Button
-        android:id="@+id/buttonBizKimiz"
+        android:id="@+id/button_about_us"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="159dp"
