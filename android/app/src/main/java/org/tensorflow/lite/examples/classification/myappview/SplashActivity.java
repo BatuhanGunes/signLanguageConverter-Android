@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.tensorflow.lite.examples.classification.MainActivity;
 import org.tensorflow.lite.examples.classification.R;
 
 import android.content.Intent;
