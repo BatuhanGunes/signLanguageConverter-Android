@@ -25,7 +25,7 @@
         android:layout_marginStart="121dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="122dp"
-        android:text="@string/g_r_nt_den_yaz_ya"
+        android:text="@string/ceviriye_basla"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewHeader" />
@@ -38,7 +38,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="122dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/yazidan_g_r_nt_ye"
+        android:text="SÖZLÜK"
         app:layout_constraintBottom_toTopOf="@+id/button_about_us"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +51,7 @@
         android:layout_marginStart="159dp"
         android:layout_marginEnd="160dp"
         android:layout_marginBottom="32dp"
-        android:text="@string/biz_kimiz"
+        android:text="@string/biz_kimiz_screen"
         app:layout_constraintBottom_toTopOf="@+id/imageViewFooter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

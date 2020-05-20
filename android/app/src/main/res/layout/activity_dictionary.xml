@@ -20,7 +20,7 @@
             android:id="@+id/button_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/geri_1"
+            android:text="@string/geri"
             android:textStyle="bold"
             android:textColor="#534eb7"/>
 
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
-            android:text="@string/s_zl_k"
+            android:text="@string/sozluk"
             android:textSize="30sp"
             android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
