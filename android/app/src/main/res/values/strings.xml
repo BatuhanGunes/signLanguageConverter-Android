@@ -17,6 +17,17 @@
     <string name="yazidan_g_r_nt_ye">YAZIDAN GÖRÜNTÜYE</string>
     <string name="biz_kimiz_screen">Biz Kimiz?</string>
     <string name="geri_1">Geri</string>
+    <string name="g_ne">GÜNEŞ</string>
+    <string name="batuhan">Batuhan</string>
+    <string name="batuhangunes001_gmail_com">batuhangunes001@gmail.com</string>
+    <string name="muhammed">Muhammed</string>
+    <string name="emin_berkay">Emin Berkay</string>
+    <string name="kocao_lu">KOCAOĞLU</string>
+    <string name="hasan">Hasan</string>
+    <string name="ztun">ÖZTUNÇ</string>
+    <string name="h_seyin">Hüseyin</string>
+    <string name="hasanhuseyin9e_gmail_com">hasanhuseyin9e@gmail.com</string>
+    <string name="meminberkaykocaoglu_gmail_com">meminberkaykocaoglu@gmail.com</string>
     <string-array name="tfe_ic_devices" translatable="false">
         <item>CPU</item>
         <item>GPU</item>
