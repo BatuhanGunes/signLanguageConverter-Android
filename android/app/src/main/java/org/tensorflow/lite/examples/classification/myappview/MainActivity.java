@@ -13,6 +13,7 @@ import org.tensorflow.lite.examples.classification.R;
 public class MainActivity extends AppCompatActivity {
 
     Button button_image_to_text;
+    Button button_about_us;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +21,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         button_image_to_text = (Button)findViewById(R.id.button_image_to_text);
+        button_about_us = (Button)findViewById(R.id.button_about_us);
 
         button_image_to_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, ClassifierActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        button_about_us.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
                 startActivity(intent);
             }
         });
