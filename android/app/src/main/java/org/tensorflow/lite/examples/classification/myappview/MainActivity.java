@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button button_image_to_text;
     Button button_about_us;
+    Button button_text_to_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         button_image_to_text = (Button)findViewById(R.id.button_image_to_text);
         button_about_us = (Button)findViewById(R.id.button_about_us);
+        button_text_to_image = (Button)findViewById(R.id.button_text_to_image);
 
         button_image_to_text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AboutUsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        button_text_to_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DictionaryActivity.class);
                 startActivity(intent);
             }
         });
