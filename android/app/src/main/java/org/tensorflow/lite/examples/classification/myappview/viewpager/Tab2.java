@@ -7,8 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import org.tensorflow.lite.examples.classification.R;
+
+import pl.droidsonroids.gif.GifImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -61,5 +64,116 @@ public class Tab2 extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_tab2, container, false);
+    }
+
+    @Override
+    public void onViewCreated(final View view, final Bundle savedInstanceState) {
+
+        GifImageView gifImageView = (GifImageView) view.findViewById(R.id.gifImageViewSignTab2);
+
+        Button button_N = (Button) view.findViewById(R.id.buttonN);
+        Button button_O = (Button) view.findViewById(R.id.buttonO);
+        Button button_OO = (Button) view.findViewById(R.id.buttonOO);
+        Button button_P = (Button) view.findViewById(R.id.buttonP);
+        Button button_R = (Button) view.findViewById(R.id.buttonR);
+        Button button_S = (Button) view.findViewById(R.id.buttonS);
+        Button button_SS = (Button) view.findViewById(R.id.buttonSS);
+        Button button_T = (Button) view.findViewById(R.id.buttonT);
+        Button button_U = (Button) view.findViewById(R.id.buttonU);
+        Button button_UU = (Button) view.findViewById(R.id.buttonUU);
+        Button button_V = (Button) view.findViewById(R.id.buttonV);
+        Button button_Y = (Button) view.findViewById(R.id.buttonY);
+        Button button_Z = (Button) view.findViewById(R.id.buttonZ);
+
+        button_N.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_n);
+            }
+        });
+
+        button_O.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_o);
+            }
+        });
+
+        button_OO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_oo);
+            }
+        });
+
+        button_P.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_p);
+            }
+        });
+
+        button_R.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_r);
+            }
+        });
+
+        button_S.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_s);
+            }
+        });
+
+        button_SS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_ss);
+            }
+        });
+
+        button_T.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_t);
+            }
+        });
+
+        button_U.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_u);
+            }
+        });
+
+        button_UU.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_uu);
+            }
+        });
+
+        button_V.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_v);
+            }
+        });
+
+        button_Y.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_y);
+            }
+        });
+
+        button_Z.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gifImageView.setImageResource(R.drawable.sign_z);
+            }
+        });
     }
 }
