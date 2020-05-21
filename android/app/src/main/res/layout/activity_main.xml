@@ -18,43 +18,54 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/sign_languages_label" />
 
+
     <Button
         android:id="@+id/button_image_to_text"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="121dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="122dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/ceviriye_basla"
+        android:textSize="20sp"
+        app:backgroundTint="@color/tfe_color_primary_dark"
+        app:layout_constraintBottom_toTopOf="@+id/button_text_to_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageViewHeader" />
 
     <Button
         android:id="@+id/button_text_to_image"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="121dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="122dp"
-        android:layout_marginBottom="16dp"
-        android:text="SÖZLÜK"
+        android:text="@string/sozluk_main_screen"
+        android:textSize="20sp"
+        app:backgroundTint="@color/tfe_color_primary_dark"
         app:layout_constraintBottom_toTopOf="@+id/button_about_us"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_image_to_text" />
 
     <Button
         android:id="@+id/button_about_us"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="159dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="160dp"
-        android:layout_marginBottom="32dp"
         android:text="@string/biz_kimiz_screen"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewFooter"
+        android:textSize="20sp"
+        app:backgroundTint="@color/tfe_color_primary_dark"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_text_to_image" />
 
     <ImageView
         android:id="@+id/imageViewFooter"

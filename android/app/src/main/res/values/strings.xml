@@ -12,7 +12,7 @@
 
     <string name="tfe_ic_device" translatable="false">Device:</string>
     <string name="todo">TODO</string>
-    <string name="biz_kimiz_screen">Biz Kimiz?</string>
+    <string name="biz_kimiz_screen">HAKKIMIZDA</string>
     <string name="geri">Geri</string>
     <string name="gunes">GÜNEŞ</string>
     <string name="batuhan">Batuhan</string>
@@ -76,4 +76,6 @@
     <string name="_9">9</string>
     <string name="_10">10</string>
     <string name="_100">100</string>
+    <string name="sozluk_main_screen">SÖZLÜK</string>
+    <string name="hakkimizda">Hakkımızda</string>
 </resources>
