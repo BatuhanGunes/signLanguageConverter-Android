@@ -22,254 +22,250 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/geri"
-            android:textStyle="bold"
-            android:textColor="#534eb7"/>
+            android:textColor="#534eb7"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="75dp"
-            android:text="@string/biz_kimiz_screen"
+            android:text="@string/hakkimizda"
             android:textSize="30sp"
             android:textStyle="bold"
             tools:text="Biz Kimiz?" />
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="1dp"
-        android:background="#D3FFCE"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-        <LinearLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:background="#D3FFCE"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageViewBatuhan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="170dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/pp_batuhan" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="4dp">
-
-                    <TextView
-                        android:id="@+id/txt_name_batuhan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/batuhan"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/txt_surname_batuhan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/gunes"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/textViewMailBatuhan"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/batuhangunes001_gmail_com"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-        </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#D3FFCE"
-            android:orientation="vertical">
+            android:orientation="vertical" >
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:background="#D3FFCE"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/imageViewBatuhan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="170dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/pp_batuhan" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:id="@+id/txt_name_batuhan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/batuhan"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/txt_surname_batuhan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/gunes"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/textViewMailBatuhan"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/batuhangunes001_gmail_com"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageViewBerkay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="170dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/pp_berkay" />
+                android:layout_marginTop="10dp"
+                android:background="#D3FFCE"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="4dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txt_name2_berkay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/muhammed"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                    <ImageView
+                        android:id="@+id/imageViewBerkay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="170dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/pp_berkay" />
 
-                    <TextView
-                        android:id="@+id/txt_name_berkay"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/emin_berkay"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="4dp">
 
-                    <TextView
-                        android:id="@+id/txt_surname_berkay"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/kocaoglu"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        <TextView
+                            android:id="@+id/txt_name2_berkay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/muhammed"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/txt_name_berkay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/emin_berkay"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/txt_surname_berkay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/kocaoglu"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/textViewMailBerkay"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/meminberkaykocaoglu_gmail_com"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textViewMailBerkay"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/meminberkaykocaoglu_gmail_com"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:background="#D3FFCE"
-            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageViewHasan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="170dp"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/todo"
-                    app:srcCompat="@drawable/pp_blank" />
+                android:layout_marginTop="10dp"
+                android:background="#D3FFCE"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="4dp">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txt_name_hasan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/hasan"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                    <ImageView
+                        android:id="@+id/imageViewHasan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="170dp"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/todo"
+                        app:srcCompat="@drawable/pp_blank" />
 
-                    <TextView
-                        android:id="@+id/txt_name2_hasan"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/huseyin"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="4dp">
 
-                    <TextView
-                        android:id="@+id/txt_surname_hasan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:text="@string/oztunc"
-                        android:textColor="@android:color/black"
-                        android:textSize="24sp" />
+                        <TextView
+                            android:id="@+id/txt_name_hasan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/hasan"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/txt_name2_hasan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/huseyin"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/txt_surname_hasan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:text="@string/oztunc"
+                            android:textColor="@android:color/black"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/textViewMailHasan"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:text="@string/hasanhuseyin9e_gmail_com"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/textViewMailHasan"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/hasanhuseyin9e_gmail_com"
-                android:textColor="@android:color/black"
-                android:textSize="18sp" />
-
         </LinearLayout>
-
-
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
