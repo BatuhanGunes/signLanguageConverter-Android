@@ -49,9 +49,9 @@ public class DictionaryActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 0);
-        viewPagerAdapter.addFragment(tab1, "Tab1");
-        viewPagerAdapter.addFragment(tab2, "Tab2");
-        viewPagerAdapter.addFragment(tab3, "Tab3");
+        viewPagerAdapter.addFragment(tab1, "A - M");
+        viewPagerAdapter.addFragment(tab2, "N - Z");
+        viewPagerAdapter.addFragment(tab3, "0 - 9");
         viewPager.setAdapter(viewPagerAdapter);
 
         button_back.setOnClickListener(new View.OnClickListener() {
