@@ -51,4 +51,17 @@
     <string name="k">K</string>
     <string name="l">L</string>
     <string name="m">M</string>
+    <string name="n">N</string>
+    <string name="t">T</string>
+    <string name="uu">Ü</string>
+    <string name="u">U</string>
+    <string name="r">R</string>
+    <string name="oo">Ö</string>
+    <string name="o">O</string>
+    <string name="p">P</string>
+    <string name="s">S</string>
+    <string name="ss">Ş</string>
+    <string name="v">V</string>
+    <string name="y">Y</string>
+    <string name="z">Z</string>
 </resources>
