@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <pl.droidsonroids.gif.GifImageView
-            android:id="@+id/gifImageViewSign"
+            android:id="@+id/gifImageViewSignTab3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -29,7 +29,7 @@
             android:layout_marginTop="24dp">
 
             <Button
-                android:id="@+id/buttonA"
+                android:id="@+id/button0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_0"
@@ -37,7 +37,7 @@
                 app:layout_row="0" />
 
             <Button
-                android:id="@+id/buttonB"
+                android:id="@+id/button1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_1"
@@ -45,7 +45,7 @@
                 app:layout_row="0" />
 
             <Button
-                android:id="@+id/buttonC"
+                android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_2"
@@ -53,7 +53,7 @@
                 app:layout_row="0" />
 
             <Button
-                android:id="@+id/buttonCC"
+                android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_3"
@@ -61,7 +61,7 @@
                 app:layout_row="0" />
 
             <Button
-                android:id="@+id/buttonD"
+                android:id="@+id/button4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_4"
@@ -69,7 +69,7 @@
                 app:layout_row="1" />
 
             <Button
-                android:id="@+id/buttonE"
+                android:id="@+id/button5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_5"
@@ -77,7 +77,7 @@
                 app:layout_row="1" />
 
             <Button
-                android:id="@+id/buttonF"
+                android:id="@+id/button6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_6"
@@ -85,7 +85,7 @@
                 app:layout_row="1" />
 
             <Button
-                android:id="@+id/buttonG"
+                android:id="@+id/button7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_7"
@@ -93,7 +93,7 @@
                 app:layout_row="1" />
 
             <Button
-                android:id="@+id/buttonGG"
+                android:id="@+id/button8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_8"
@@ -101,7 +101,7 @@
                 app:layout_row="2" />
 
             <Button
-                android:id="@+id/buttonH"
+                android:id="@+id/button9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_9"
@@ -109,7 +109,7 @@
                 app:layout_row="2" />
 
             <Button
-                android:id="@+id/buttonI"
+                android:id="@+id/button10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_10"
@@ -117,7 +117,7 @@
                 app:layout_row="2" />
 
             <Button
-                android:id="@+id/buttonII"
+                android:id="@+id/button100"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_100"
