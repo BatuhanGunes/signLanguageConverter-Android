@@ -12,25 +12,69 @@
 
     <string name="tfe_ic_device" translatable="false">Device:</string>
     <string name="todo">TODO</string>
-    <string name="g_r_nt_den_yaz_ya">Görüntüden Yazıya</string>
-    <string name="biz_kimiz">Biz kimiz?</string>
-    <string name="yazidan_g_r_nt_ye">YAZIDAN GÖRÜNTÜYE</string>
     <string name="biz_kimiz_screen">Biz Kimiz?</string>
-    <string name="geri_1">Geri</string>
-    <string name="g_ne">GÜNEŞ</string>
+    <string name="geri">Geri</string>
+    <string name="gunes">GÜNEŞ</string>
     <string name="batuhan">Batuhan</string>
     <string name="batuhangunes001_gmail_com">batuhangunes001@gmail.com</string>
     <string name="muhammed">Muhammed</string>
     <string name="emin_berkay">Emin Berkay</string>
-    <string name="kocao_lu">KOCAOĞLU</string>
+    <string name="kocaoglu">KOCAOĞLU</string>
     <string name="hasan">Hasan</string>
-    <string name="ztun">ÖZTUNÇ</string>
-    <string name="h_seyin">Hüseyin</string>
+    <string name="oztunc">ÖZTUNÇ</string>
+    <string name="huseyin">Hüseyin</string>
     <string name="hasanhuseyin9e_gmail_com">hasanhuseyin9e@gmail.com</string>
     <string name="meminberkaykocaoglu_gmail_com">meminberkaykocaoglu@gmail.com</string>
+    <string name="sozluk">Sözlük</string>
+    <string name="ceviriye_basla">ÇEVİRİYE BAŞLA</string>
+    <string name="ceviriye_basla_camera">Çeviriye Başla</string>
     <string-array name="tfe_ic_devices" translatable="false">
         <item>CPU</item>
         <item>GPU</item>
         <item>NNAPI</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="a">A</string>
+    <string name="b">B</string>
+    <string name="c">C</string>
+    <string name="cc">Ç</string>
+    <string name="d">D</string>
+    <string name="e">E</string>
+    <string name="f">F</string>
+    <string name="g">G</string>
+    <string name="gg">Ğ</string>
+    <string name="h">H</string>
+    <string name="ii">I</string>
+    <string name="i">İ</string>
+    <string name="j">J</string>
+    <string name="k">K</string>
+    <string name="l">L</string>
+    <string name="m">M</string>
+    <string name="n">N</string>
+    <string name="t">T</string>
+    <string name="uu">Ü</string>
+    <string name="u">U</string>
+    <string name="r">R</string>
+    <string name="oo">Ö</string>
+    <string name="o">O</string>
+    <string name="p">P</string>
+    <string name="s">S</string>
+    <string name="ss">Ş</string>
+    <string name="v">V</string>
+    <string name="y">Y</string>
+    <string name="z">Z</string>
+    <string name="_0">0</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="_6">6</string>
+    <string name="_7">7</string>
+    <string name="_8">8</string>
+    <string name="_9">9</string>
+    <string name="_10">10</string>
+    <string name="_100">100</string>
 </resources>

@@ -17,23 +17,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.ImageClassification">
 
-        // app's starting activity
         <activity android:name=".myappview.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity android:name=".myappview.MainActivity" />
+        <activity android:name=".myappview.DictionaryActivity"/>
+        <activity android:name=".myappview.AboutUsActivity" />
 
-        <activity android:name=".myappview.AboutUsActivity"></activity>
-
-        // TenserFlowLite image classifier activity
         <activity
             android:name=".ClassifierActivity"
             android:label="@string/tfe_ic_app_name"
-            android:screenOrientation="fullSensor"></activity>
+            android:screenOrientation="fullSensor"/>
     </application>
 
 </manifest>

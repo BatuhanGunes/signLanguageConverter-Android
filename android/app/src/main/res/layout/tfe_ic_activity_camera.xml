@@ -26,12 +26,12 @@
         android:orientation="vertical">
 
 
-        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/black"
+            android:layout_marginTop="?attr/actionBarSize"
             tools:context="org.tensorflow.lite.examples.classification.CameraActivity" />
 
 
@@ -40,12 +40,25 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_alignParentTop="true"
-            android:background="@color/tfe_semi_transparent">
+            android:background="?attr/colorButtonNormal">
 
-            <ImageView
+            <Button
+                android:id="@+id/button_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/tfl2_logo" />
+                android:text="@string/geri"
+                android:textStyle="bold"
+                android:textColor="#534eb7"/>
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:text="@string/ceviriye_basla_camera"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                tools:text="Çeviriye Başla" />
         </androidx.appcompat.widget.Toolbar>
 
     </RelativeLayout>

@@ -21,7 +21,7 @@
             android:id="@+id/button_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/geri_1"
+            android:text="@string/geri"
             android:textStyle="bold"
             android:textColor="#534eb7"/>
 
@@ -95,7 +95,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="@string/g_ne"
+                        android:text="@string/gunes"
                         android:textColor="@android:color/black"
                         android:textSize="24sp" />
 
@@ -171,7 +171,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="@string/kocao_lu"
+                        android:text="@string/kocaoglu"
                         android:textColor="@android:color/black"
                         android:textSize="24sp" />
 
@@ -237,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="@string/h_seyin"
+                        android:text="@string/huseyin"
                         android:textColor="@android:color/black"
                         android:textSize="24sp" />
 
@@ -247,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:text="@string/ztun"
+                        android:text="@string/oztunc"
                         android:textColor="@android:color/black"
                         android:textSize="24sp" />
 
