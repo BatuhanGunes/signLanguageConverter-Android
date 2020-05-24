@@ -1,79 +1,332 @@
-**Dil :** [English](https://github.com/BatuhanGunes/signLanguageConverter-Android) / Turkish
+# TensorFlow Lite Android image classification example
 
-# İşaret Dili Çeviricisi
+This document walks through the code of a simple Android mobile application that
+demonstrates
+[image classification](https://www.tensorflow.org/lite/models/image_classification/overview)
+using the device camera.
 
-Bu proje, bilgisayarlı görü ile derin öğrenme yöntemlerini kullanarak işaret dili bilmeyen bir insan ile işaret dili ile iletişim kuran bir insanın arasındaki iletişim problemlerini ortadan kaldırmaya çalışmaktadır. İşaret dili bilmeyen kullanıcı telefonundaki bu uygulama sayesinde işaret dili ile yapılan hareketlerin anlamlarını algılayabilmektedir. Bunun için uygulama açılır ve işaret dili kullanan kişinin görüntüsü alınır. Bu görüntü üzerinde canlı olarak derin öğrenme yöntemleri ile işaretlerin anlamları çıkartılır. Bu anlamlar diğer kullanıcıya sesli veya yazılı olarak aktarılır. Aynı zamanda işaret dili sözlüğü olabilicek şekilde işaretlerin anlamları farklı bir sayfada kullanıcıya sunulmaktadır. Proje hakkında teknik ve ayrıntılı bilgi almak için [SingLanguageDescription](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/SingLanguageDescription.pdf) sayfasını inceleyebilirsiniz. Ayrıca kod ile ilgili açıklamaları [Explore The_Code](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/EXPLORE_THE_CODE.md) sayfasında bulabilirsiniz.
+## Explore the code
 
-Not: Bu projede işaret dili olarak "Türk İşaret Dili"  kullanılmıştır.
+We're now going to walk through the most important parts of the sample code.
 
-## Ekran Görüntüleri
+### Get camera input
 
-<img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/main.png"> <img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/dictionary.png"> <img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/about_us.png">
+This mobile application gets the camera input using the functions defined in the
+file
+[`CameraActivity.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/CameraActivity.java).
+This file depends on
+[`AndroidManifest.xml`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/AndroidManifest.xml)
+to set the camera orientation.
 
-## Başlangıç
+`CameraActivity` also contains code to capture user preferences from the UI and
+make them available to other classes via convenience methods.
 
-Projeyi çalıştırabilmek için proje dosyalarının bir kopyasını yerel makinenize indirin. Gerekli ortamları edindikten sonra projeyi bu ortamda açarak çalıştırabilirsiniz. Programı bir ios cihaz üzerinde çalıştırabilirsiniz.
+```java
+model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
+device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
+numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
+```
 
-### Gereklilikler
+### Classifier
 
-* Android Studio 3.2 (Linux, Mac veya Windows makinesine yüklenmiş)
+The file
+[`Classifier.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java)
+contains most of the complex logic for processing the camera input and running
+inference.
 
-* Geliştirici modundayken USB hata ayıklama etkin olan cihaz
+Two subclasses of the file exist, in
+[`ClassifierFloatMobileNet.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierFloatMobileNet.java)
+and
+[`ClassifierQuantizedMobileNet.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java),
+to demonstrate the use of both floating point and
+[quantized](https://www.tensorflow.org/lite/performance/post_training_quantization)
+models. After the introduction of the
+[TensorFlow Lite Android Support Library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/experimental/support/java),
+these subclasses mainly contain settings rather than processing logic.
 
-* USB kablosu (cihazı bilgisayarınıza bağlamak için)
+The `Classifier` class implements a static method, `create`, which is used to
+instantiate the appropriate subclass based on the supplied model type (quantized
+vs floating point).
 
-## İnşa et ve Çalıştır
+#### Load model and create interpreter
 
-### Adım 1. signLanguageConverter kaynak kodunu kopyalayın
+To perform inference, we need to load a model file and instantiate an
+`Interpreter`. This happens in the constructor of the `Classifier` class, along
+with loading the list of class labels. Information about the device type and
+number of threads is used to configure the `Interpreter` via the
+`Interpreter.Options` instance passed into its constructor. Note that if a GPU,
+DSP (Digital Signal Processor) or NPU (Neural Processing Unit)
+is available, a
+[`Delegate`](https://www.tensorflow.org/lite/performance/delegates) can be
+used to take full advantage of these hardware.
 
-Uygulamayı almak için GitHub deposunu bilgisayarınıza kopyalayın.
+Please note that there are performance edge cases and developers are adviced to
+test with a representative set of devices prior to production.
 
-Android Studio'da signLanguageConverter kaynak kodunu açın. Bunu yapmak için Android
-Studio'yu açın ve `signLanguageConverter/android/examples/`
+```java
+protected Classifier(Activity activity, Device device, int numThreads) throws
+    IOException {
+  tfliteModel = FileUtil.loadMappedFile(activity, getModelPath());
+  switch (device) {
+    case NNAPI:
+      nnApiDelegate = new NnApiDelegate();
+      tfliteOptions.addDelegate(nnApiDelegate);
+      break;
+    case GPU:
+      gpuDelegate = new GpuDelegate();
+      tfliteOptions.addDelegate(gpuDelegate);
+      break;
+    case CPU:
+      break;
+  }
+  tfliteOptions.setNumThreads(numThreads);
+  tflite = new Interpreter(tfliteModel, tfliteOptions);
+  labels = FileUtil.loadLabels(activity, getLabelPath());
+...
+```
 
-<img src="images/classifydemo_img1.png?raw=true" />
+For Android devices, we recommend pre-loading and memory mapping the model file
+to offer faster load times and reduce the dirty pages in memory. The method
+`FileUtil.loadMappedFile` does this, returning a `MappedByteBuffer` containing
+the model.
 
-### Adım 2. Android Studio projesini oluşturma
+The `MappedByteBuffer` is passed into the `Interpreter` constructor, along with
+an `Interpreter.Options` object. This object can be used to configure the
+interpreter, for example by setting the number of threads (`.setNumThreads(1)`)
+or enabling [NNAPI](https://developer.android.com/ndk/guides/neuralnetworks)
+(`.addDelegate(nnApiDelegate)`).
 
-`Build -> Make Project` ı seçin ve projenin başarıyla oluşturulduğunu kontrol edin.
-Ayarlarda yapılandırılmış Android SDK'ye ihtiyacınız olacak. En az 23 sürüm olan SDK'ya ihtiyacınız olacak
-sürüm 23. `build.gradle` dosyası eksik olanları indirmenizi ister kütüphaneler.
+#### Pre-process bitmap image
 
-<img src="images/classifydemo_img4.png?raw=true" style="width: 40%" />
+Next in the `Classifier` constructor, we take the input camera bitmap image,
+convert it to a `TensorImage` format for efficient processing and pre-process
+it. The steps are shown in the private 'loadImage' method:
 
-<img src="images/classifydemo_img2.png?raw=true" style="width: 60%" />
+```java
+/** Loads input image, and applys preprocessing. */
+private TensorImage loadImage(final Bitmap bitmap, int sensorOrientation) {
+  // Loads bitmap into a TensorImage.
+  image.load(bitmap);
 
-<aside class="note"><b>Note:</b><p>`build.gradle` kullanmak üzere yapılandırıldı
-    TensorFlow Lite's nightly build.</p><p>İle ilgili bir derleme hatası görürseniz
-    Tensorflow Lite'ın Java API'sı ile uyumluluk (örneğin, X yöntemi
-     Interpreter` türü için tanımlanmamışsa), geriye dönük olarak uyumlu olması muhtemeldir
-     API olarak değiştirin. Örnek depoda "git pull" i çalıştırmanız gerekecek.
-     gecelik yapıya uygun bir sürüm elde edin.</p></aside>
+  // Creates processor for the TensorImage.
+  int cropSize = Math.min(bitmap.getWidth(), bitmap.getHeight());
+  int numRoration = sensorOrientation / 90;
+  ImageProcessor imageProcessor =
+      new ImageProcessor.Builder()
+          .add(new ResizeWithCropOrPadOp(cropSize, cropSize))
+          .add(new ResizeOp(imageSizeX, imageSizeY, ResizeMethod.BILINEAR))
+          .add(new Rot90Op(numRoration))
+          .add(getPreprocessNormalizeOp())
+          .build();
+  return imageProcessor.process(inputImageBuffer);
+}
+```
 
-### Step 3. Uygulamayı yükle ve çalıştır
+The pre-processing is largely the same for quantized and float models with one
+exception: Normalization.
 
-Android cihazı bilgisayara bağlayın ve herhangi bir ADB'yi onayladığınızdan emin olun.
-telefonunuzda görünen izin istemleri. `Çalıştır -> Uygulamayı çalıştır'ı seçin.
-bağlı cihazlarda uygulamanın hedeflendiği cihaza dağıtım hedefi
-yüklenecek. Bu, uygulamayı cihaza yükleyecektir.
+In `ClassifierFloatMobileNet`, the normalization parameters are defined as:
 
-<img src="images/classifydemo_img5.png?raw=true" style="width: 60%" />
+```java
+private static final float IMAGE_MEAN = 127.5f;
+private static final float IMAGE_STD = 127.5f;
+```
 
-<img src="images/classifydemo_img6.png?raw=true" style="width: 70%" />
+In `ClassifierQuantizedMobileNet`, normalization is not required. Thus the
+nomalization parameters are defined as:
 
-<img src="images/classifydemo_img7.png?raw=true" style="width: 40%" />
+```java
+private static final float IMAGE_MEAN = 0.0f;
+private static final float IMAGE_STD = 1.0f;
+```
 
-<img src="images/classifydemo_img8.png?raw=true" style="width: 80%" />
+#### Allocate output object
 
-Uygulamayı test etmek için cihazınızda `` TFL Classify '' adlı uygulamayı açın. 
-uygulama ilk kez Koştuğunda, uygulama kameraya erişmek için izin isteyecektir.
-Uygulamanın yeniden yüklenmesi, önceki yüklemelerin kaldırılmasını gerektirebilir.
+Initiate the output `TensorBuffer` for the output of the model.
 
-## Varlıklar klasörü 
-içeriğini silmeyin_. Açıkça sildiyseniz, silinen model dosyalarını yeniden indirmek için `` Oluştur -> Yeniden Oluştur '' u seçin.
+```java
+/** Output probability TensorBuffer. */
+private final TensorBuffer outputProbabilityBuffer;
 
-## Yazarlar
+//...
+// Get the array size for the output buffer from the TensorFlow Lite model file
+int probabilityTensorIndex = 0;
+int[] probabilityShape =
+    tflite.getOutputTensor(probabilityTensorIndex).shape(); // {1, 1001}
+DataType probabilityDataType =
+    tflite.getOutputTensor(probabilityTensorIndex).dataType();
 
-* **Batuhan Güneş**  - [BatuhanGunes](https://github.com/BatuhanGunes)
+// Creates the output tensor and its processor.
+outputProbabilityBuffer =
+    TensorBuffer.createFixedSize(probabilityShape, probabilityDataType);
 
-Ayrıca, bu projeye katılan ve katkıda bulunanlara [contributors](https://github.com/BatuhanGunes/signLanguageConverter-Android/graphs/contributors) listesinden ulaşabilirsiniz.
+// Creates the post processor for the output probability.
+probabilityProcessor =
+    new TensorProcessor.Builder().add(getPostprocessNormalizeOp()).build();
+```
+
+For quantized models, we need to de-quantize the prediction with the NormalizeOp
+(as they are all essentially linear transformation). For float model,
+de-quantize is not required. But to uniform the API, de-quantize is added to
+float model too. Mean and std are set to 0.0f and 1.0f, respectively. To be more
+specific,
+
+In `ClassifierQuantizedMobileNet`, the normalized parameters are defined as:
+
+```java
+private static final float PROBABILITY_MEAN = 0.0f;
+private static final float PROBABILITY_STD = 255.0f;
+```
+
+In `ClassifierFloatMobileNet`, the normalized parameters are defined as:
+
+```java
+private static final float PROBABILITY_MEAN = 0.0f;
+private static final float PROBABILITY_MEAN = 1.0f;
+```
+
+#### Run inference
+
+Inference is performed using the following in `Classifier` class:
+
+```java
+tflite.run(inputImageBuffer.getBuffer(),
+    outputProbabilityBuffer.getBuffer().rewind());
+```
+
+#### Recognize image
+
+Rather than call `run` directly, the method `recognizeImage` is used. It accepts
+a bitmap and sensor orientation, runs inference, and returns a sorted `List` of
+`Recognition` instances, each corresponding to a label. The method will return a
+number of results bounded by `MAX_RESULTS`, which is 3 by default.
+
+`Recognition` is a simple class that contains information about a specific
+recognition result, including its `title` and `confidence`. Using the
+post-processing normalization method specified, the confidence is converted to
+between 0 and 1 of a given class being represented by the image.
+
+```java
+/** Gets the label to probability map. */
+Map<String, Float> labeledProbability =
+    new TensorLabel(labels,
+        probabilityProcessor.process(outputProbabilityBuffer))
+        .getMapWithFloatValue();
+```
+
+A `PriorityQueue` is used for sorting.
+
+```java
+/** Gets the top-k results. */
+private static List<Recognition> getTopKProbability(
+    Map<String, Float> labelProb) {
+  // Find the best classifications.
+  PriorityQueue<Recognition> pq =
+      new PriorityQueue<>(
+          MAX_RESULTS,
+          new Comparator<Recognition>() {
+            @Override
+            public int compare(Recognition lhs, Recognition rhs) {
+              // Intentionally reversed to put high confidence at the head of
+              // the queue.
+              return Float.compare(rhs.getConfidence(), lhs.getConfidence());
+            }
+          });
+
+  for (Map.Entry<String, Float> entry : labelProb.entrySet()) {
+    pq.add(new Recognition("" + entry.getKey(), entry.getKey(),
+               entry.getValue(), null));
+  }
+
+  final ArrayList<Recognition> recognitions = new ArrayList<>();
+  int recognitionsSize = Math.min(pq.size(), MAX_RESULTS);
+  for (int i = 0; i < recognitionsSize; ++i) {
+    recognitions.add(pq.poll());
+  }
+  return recognitions;
+}
+```
+
+### Display results
+
+The classifier is invoked and inference results are displayed by the
+`processImage()` function in
+[`ClassifierActivity.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/ClassifierActivity.java).
+
+`ClassifierActivity` is a subclass of `CameraActivity` that contains method
+implementations that render the camera image, run classification, and display
+the results. The method `processImage()` runs classification on a background
+thread as fast as possible, rendering information on the UI thread to avoid
+blocking inference and creating latency.
+
+```java
+@Override
+protected void processImage() {
+  rgbFrameBitmap.setPixels(getRgbBytes(), 0, previewWidth, 0, 0, previewWidth,
+      previewHeight);
+  final int imageSizeX = classifier.getImageSizeX();
+  final int imageSizeY = classifier.getImageSizeY();
+
+  runInBackground(
+      new Runnable() {
+        @Override
+        public void run() {
+          if (classifier != null) {
+            final long startTime = SystemClock.uptimeMillis();
+            final List<Classifier.Recognition> results =
+                classifier.recognizeImage(rgbFrameBitmap, sensorOrientation);
+            lastProcessingTimeMs = SystemClock.uptimeMillis() - startTime;
+            LOGGER.v("Detect: %s", results);
+
+            runOnUiThread(
+                new Runnable() {
+                  @Override
+                  public void run() {
+                    showResultsInBottomSheet(results);
+                    showFrameInfo(previewWidth + "x" + previewHeight);
+                    showCropInfo(imageSizeX + "x" + imageSizeY);
+                    showCameraResolution(imageSizeX + "x" + imageSizeY);
+                    showRotationInfo(String.valueOf(sensorOrientation));
+                    showInference(lastProcessingTimeMs + "ms");
+                  }
+                });
+          }
+          readyForNextImage();
+        }
+      });
+}
+```
+
+Another important role of `ClassifierActivity` is to determine user preferences
+(by interrogating `CameraActivity`), and instantiate the appropriately
+configured `Classifier` subclass. This happens when the video feed begins (via
+`onPreviewSizeChosen()`) and when options are changed in the UI (via
+`onInferenceConfigurationChanged()`).
+
+```java
+private void recreateClassifier(Model model, Device device, int numThreads) {
+  if (classifier != null) {
+    LOGGER.d("Closing classifier.");
+    classifier.close();
+    classifier = null;
+  }
+  if (device == Device.GPU && model == Model.QUANTIZED) {
+    LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
+    runOnUiThread(
+        () -> {
+          Toast.makeText(this, "GPU does not yet supported quantized models.",
+              Toast.LENGTH_LONG)
+              .show();
+        });
+    return;
+  }
+  try {
+    LOGGER.d(
+        "Creating classifier (model=%s, device=%s, numThreads=%d)", model,
+        device, numThreads);
+    classifier = Classifier.create(this, model, device, numThreads);
+  } catch (IOException e) {
+    LOGGER.e(e, "Failed to create classifier.");
+  }
+}
+```
