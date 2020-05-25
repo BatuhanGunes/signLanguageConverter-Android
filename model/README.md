@@ -31,6 +31,6 @@ Eğittimiz modeli android ortamında çalıştırmadan yani [model dönüştürm
 <img align="center" width="1000" height="550" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/test1.jpg">
 ## Model Dönüştürme
 Tensorflow ve keras yardımıyla eğittimiz modelimizi, TFLiteConverter.from_keras_model_file metodu ile programa dahil edip bunu bir değişkene atadık. Ardından bu değişken ile convert metodunu çağırarak modelimizi tflite modele çevirdik. Ardından bunu da dosya yazma işlemlerinde kullanulan metod ile kaydettik.
-<img align="center" width="1000" height="550" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/convert.jpg">
+<img align="center" width="1000" height="300" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/convert.jpg">
 
 [Başa Dön](#dataset-ve-model-olusturma)
