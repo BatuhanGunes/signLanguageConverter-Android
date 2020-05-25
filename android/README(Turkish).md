@@ -1,67 +1,33 @@
-# TensorFlow Lite Android image classification example
+# İşaret Dili Çevirici
 
-This document walks through the code of a simple Android mobile application that
-demonstrates
-[image classification](https://www.tensorflow.org/lite/models/image_classification/overview)
-using the device camera.
+Bu belge, cihaz kamerasını kullanarak görüntü sınıflandırması yapan bir Android mobil uygulamasının kodunu gösterir.
 
-## Explore the code
+##  Algoritma Dökümantasyonu
 
-We're now going to walk through the most important parts of the sample code.
+Şimdi örnek kodun en önemli kısımlarını inceleyeceğiz.
 
-### Get camera input
+### Kameradan Görüntü Alınması
 
-This mobile application gets the camera input using the functions defined in the
-file
-[`CameraActivity.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/CameraActivity.java).
-This file depends on
-[`AndroidManifest.xml`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/AndroidManifest.xml)
-to set the camera orientation.
+Bu mobil uygulama kamera girişini [`CameraActivity.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/CameraActivity.java) dosyasında tanımlanan fonksiyonları kullanarak alır. Bu dosya kamera izinlerini ayarlamak için [`AndroidManifest.xml`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/AndroidManifest.xml) dosyasına bağlıdır.
 
-`CameraActivity` also contains code to capture user preferences from the UI and
-make them available to other classes via convenience methods.
+`CameraActivity` ayrıca kullanıcı arayüzünden kullanıcı tercihlerini yakalayarak diğer sınıfların kullanımını sağlar.
 
 ```java
-model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
 device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
 numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
 ```
 
-### Classifier
+### Sınıflandırıcı
 
-The file
-[`Classifier.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java)
-contains most of the complex logic for processing the camera input and running
-inference.
+[`Classifier.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java) dosyası, kamera girişini işlemek ve çıkarım yapmak için karmaşık mantığın çoğunu içerir.
 
-Two subclasses of the file exist, in
-[`ClassifierFloatMobileNet.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierFloatMobileNet.java)
-and
-[`ClassifierQuantizedMobileNet.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java),
-to demonstrate the use of both floating point and
-[quantized](https://www.tensorflow.org/lite/performance/post_training_quantization)
-models. After the introduction of the
-[TensorFlow Lite Android Support Library](https://github.com/tensorflow/tensorflow/tree/master/tensorflow/lite/experimental/support/java),
-these subclasses mainly contain settings rather than processing logic.
+`Classifier.java` dosyasının Hem kayan nokta hem de 'nicelenmiş' modellerin kullanımını göstermek için [`ClassifierFloatMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierFloatMobileNet.java) ve [`ClassifierQuantizedMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java) olmak üzere iki alt sınıfı mevcuttur.
 
-The `Classifier` class implements a static method, `create`, which is used to
-instantiate the appropriate subclass based on the supplied model type (quantized
-vs floating point).
+`Classifier` sınıfı, sağlanan türe göre (kayan noktaya göre niceliklendirilmiş) uygun alt sınıfı başlatmak için kullanılan statik bir yöntem olan "create" komutunu uygular. 
 
-#### Load model and create interpreter
+#### Model ve Yorumlayıcı
 
-To perform inference, we need to load a model file and instantiate an
-`Interpreter`. This happens in the constructor of the `Classifier` class, along
-with loading the list of class labels. Information about the device type and
-number of threads is used to configure the `Interpreter` via the
-`Interpreter.Options` instance passed into its constructor. Note that if a GPU,
-DSP (Digital Signal Processor) or NPU (Neural Processing Unit)
-is available, a
-[`Delegate`](https://www.tensorflow.org/lite/performance/delegates) can be
-used to take full advantage of these hardware.
-
-Please note that there are performance edge cases and developers are adviced to
-test with a representative set of devices prior to production.
+Çıkarım yapmak için bir model dosyası yüklememiz ve bir yorumlayıcı başlatmamız gerekir. Bu olay, `Classifier` sınıfının 'Constructor' metodunda gerçekleştirirlir. Cihaz tipi ve iş parçacığı sayısı hakkındaki bilgiler, constructor metoduna aktarılan `Interpreter.Options`  nesnesi aracılığıyla yorumlayıcıyı yapılandırmak için kullanılır. Bir GPU, DSP (Dijital Sinyal İşlemcisi) veya NPU (Sinir İşleme Ünitesi) varsa, bu donanımdan tam olarak yararlanmak için bir `Delegate` kullanılabilir. Bu seçenekler daha fazla performans sağlayabilirken, aynı zamanda cihazın güç tüketimini attırmaktadır.
 
 ```java
 protected Classifier(Activity activity, Device device, int numThreads) throws
@@ -85,22 +51,14 @@ protected Classifier(Activity activity, Device device, int numThreads) throws
 ...
 ```
 
-For Android devices, we recommend pre-loading and memory mapping the model file
-to offer faster load times and reduce the dirty pages in memory. The method
-`FileUtil.loadMappedFile` does this, returning a `MappedByteBuffer` containing
-the model.
+Daha hızlı yükleme süreleri sunmak ve bellekteki kirli sayfaları azaltmak için model dosyasını önceden yüklemeyi ve bellek eşlemeyi gerçekleştirmek için `FileUtil.loadMappedFile` yöntemi kullanılır. Bu yöntem modeli içeren bir“ MappedByteBuffer ”döndürür.
 
-The `MappedByteBuffer` is passed into the `Interpreter` constructor, along with
-an `Interpreter.Options` object. This object can be used to configure the
-interpreter, for example by setting the number of threads (`.setNumThreads(1)`)
-or enabling [NNAPI](https://developer.android.com/ndk/guides/neuralnetworks)
-(`.addDelegate(nnApiDelegate)`).
+"MappedByteBuffer", bir "Interpreter.Options" nesnesi ile birlikte "Interpreter" yapıcısına iletilir. Bu nesne, yorumlayıcıyı yapılandırmak için kullanılabilir, örneğin iş parçacığı sayısını ayarlayarak (`.setNumThreads (1)`) veya [NNAPI] (`.addDelegate (nnApiDelegate)`) etkinleştirerek.
 
-#### Pre-process bitmap image
+#### İşlem Öncesi Bitmap Görüntüsü
 
-Next in the `Classifier` constructor, we take the input camera bitmap image,
-convert it to a `TensorImage` format for efficient processing and pre-process
-it. The steps are shown in the private 'loadImage' method:
+`Classifier` constructor ile giriş kameradan bitmap görüntüsünü alıyoruz, verimli işleme için bir `TensorImage` formatına dönüştürüyor ve ön işlemler yapıyoruz. Adımlar 'private loadImage' metoodunda gösterilirmektedir:
+
 
 ```java
 /** Loads input image, and applys preprocessing. */
@@ -122,27 +80,25 @@ private TensorImage loadImage(final Bitmap bitmap, int sensorOrientation) {
 }
 ```
 
-The pre-processing is largely the same for quantized and float models with one
-exception: Normalization.
+Normalleştirme hariç ön yükleme işlemi `ClassifierFloatMobileNet` (nicelenmiş) ve `ClassifierQuantizedMobileNet` (Kayan nokta) modelleri için büyük ölçüde aynıdır.
 
-In `ClassifierFloatMobileNet`, the normalization parameters are defined as:
+`ClassifierFloatMobileNet`'te normalleştirme parametreleri şu şekilde tanımlanır:
 
 ```java
 private static final float IMAGE_MEAN = 127.5f;
 private static final float IMAGE_STD = 127.5f;
 ```
 
-In `ClassifierQuantizedMobileNet`, normalization is not required. Thus the
-nomalization parameters are defined as:
+`ClassifierQuantizedMobileNet`'te normalleştirme gerekli değildir. Böylece, nomalizasyon parametreleri şu şekilde tanımlanır:
 
 ```java
 private static final float IMAGE_MEAN = 0.0f;
 private static final float IMAGE_STD = 1.0f;
 ```
 
-#### Allocate output object
+#### Çıktı Nesnesi
 
-Initiate the output `TensorBuffer` for the output of the model.
+Modelin çıkışı için `TensorBuffer`çıkışının başlatılması gerekmektedir. Bu işlem:
 
 ```java
 /** Output probability TensorBuffer. */
@@ -164,47 +120,37 @@ outputProbabilityBuffer =
 probabilityProcessor =
     new TensorProcessor.Builder().add(getPostprocessNormalizeOp()).build();
 ```
+Nicemlenmiş modeller için, tahminleri NormalizeOp ile nicelleştirmemiz gerekir. Kayan Nokta modeli için nicemsizleştirme gerekli değildir. Daha spesifik olmak gerekirse,
 
-For quantized models, we need to de-quantize the prediction with the NormalizeOp
-(as they are all essentially linear transformation). For float model,
-de-quantize is not required. But to uniform the API, de-quantize is added to
-float model too. Mean and std are set to 0.0f and 1.0f, respectively. To be more
-specific,
+`ClassifierQuantizedMobileNet`, içinde normalleştirilmiş parametreler şu şekilde tanımlanır:
 
-In `ClassifierQuantizedMobileNet`, the normalized parameters are defined as:
 
 ```java
 private static final float PROBABILITY_MEAN = 0.0f;
 private static final float PROBABILITY_STD = 255.0f;
 ```
 
-In `ClassifierFloatMobileNet`, the normalized parameters are defined as:
+`ClassifierFloatMobileNet`, içinde normalleştirilmiş parametreler şu şekilde tanımlanır:
 
 ```java
 private static final float PROBABILITY_MEAN = 0.0f;
 private static final float PROBABILITY_MEAN = 1.0f;
 ```
 
-#### Run inference
+#### Sonuç Çıkarımlama 
 
-Inference is performed using the following in `Classifier` class:
+Çıkarım, `Classifier` sınıfında aşağıdakiler kullanılarak gerçekleştirilir:
 
 ```java
 tflite.run(inputImageBuffer.getBuffer(),
     outputProbabilityBuffer.getBuffer().rewind());
 ```
 
-#### Recognize image
+#### Görüntü tanımlama
 
-Rather than call `run` directly, the method `recognizeImage` is used. It accepts
-a bitmap and sensor orientation, runs inference, and returns a sorted `List` of
-`Recognition` instances, each corresponding to a label. The method will return a
-number of results bounded by `MAX_RESULTS`, which is 3 by default.
+Doğrudan `run` çağırmak yerine, `recognizeImage` metotu kullanılır. Bir bitmap ve sensör yönelimini kabul eder, çıkarım yapar ve her biri bir etikete karşılık gelen sıralı `Recognition` örnekleri listesini döndürür. Yöntem, `MAX_RESULTS` ile sınırlı bir dizi sonuç döndürür, varsayılan olarak 3 değerindedir.
 
-`Recognition` is a simple class that contains information about a specific
-recognition result, including its `title` and `confidence`. Using the
-post-processing normalization method specified, the confidence is converted to
-between 0 and 1 of a given class being represented by the image.
+`Recognition`, belirli bir tanıma sonucu hakkında bilgi içeren basit bir sınıftır, buna `title` and `confidence` bilgileride dahildir. Tanımlama işlemi sonrasında değerler 0 ila 1 arasında bir değer alır. Daha sonra bu değerlere sabit olan nesneler sıralanır.
 
 ```java
 /** Gets the label to probability map. */
@@ -214,7 +160,7 @@ Map<String, Float> labeledProbability =
         .getMapWithFloatValue();
 ```
 
-A `PriorityQueue` is used for sorting.
+Sıralama için bir `PriorityQueue` metotu kullanılır.
 
 ```java
 /** Gets the top-k results. */
@@ -247,17 +193,11 @@ private static List<Recognition> getTopKProbability(
 }
 ```
 
-### Display results
+### Sonuçların Görüntülenmesi
 
-The classifier is invoked and inference results are displayed by the
-`processImage()` function in
-[`ClassifierActivity.java`](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android/app/src/main/java/org/tensorflow/lite/examples/classification/ClassifierActivity.java).
+Classifier sınıfı çağrılır ve sonuçlar çıkartılır. Çıkarılan sonuçlar [`ClassifierActivity.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java) içindeki `processImage()` fonksiyonu tarafından görüntülenir.
 
-`ClassifierActivity` is a subclass of `CameraActivity` that contains method
-implementations that render the camera image, run classification, and display
-the results. The method `processImage()` runs classification on a background
-thread as fast as possible, rendering information on the UI thread to avoid
-blocking inference and creating latency.
+`ClassifierActivity`, kamera görüntüsünü oluşturan, sınıflandırmayı çalıştıran ve sonuçları görüntüleyen yöntem uygulamalarını içeren `CameraActivity`'nin bir alt sınıfıdır. `ProcessImage()` fonksiyonu, iş parçacığında yapılan sınıflandırmayı olabildiğince hızlı çalıştırır, çıkarımın engellenmesini ve gecikmenin oluşmasını önlemek için UI iş parçacığında bilgi oluşturur.
 
 ```java
 @Override
@@ -297,11 +237,7 @@ protected void processImage() {
 }
 ```
 
-Another important role of `ClassifierActivity` is to determine user preferences
-(by interrogating `CameraActivity`), and instantiate the appropriately
-configured `Classifier` subclass. This happens when the video feed begins (via
-`onPreviewSizeChosen()`) and when options are changed in the UI (via
-`onInferenceConfigurationChanged()`).
+`ClassifierActivity` nin bir diğer önemli rolü, kullanıcı tercihlerini belirlemek (`CameraActivity` yi sorgulayarak) ve uygun şekilde yapılandırılmış `Classifier` alt sınıfını başlatmaktır. Bu, video feed'i başladığında (`onPreviewSizeChosen()` aracılığıyla) ve kullanıcı arayüzünde seçenekler değiştirildiğinde (`onInferenceConfigurationChanged()` aracılığıyla) gerçekleşir.
 
 ```java
 private void recreateClassifier(Model model, Device device, int numThreads) {
