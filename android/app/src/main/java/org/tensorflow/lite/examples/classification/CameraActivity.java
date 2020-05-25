@@ -85,27 +85,25 @@ public abstract class CameraActivity extends AppCompatActivity
   private LinearLayout gestureLayout;
   private BottomSheetBehavior<LinearLayout> sheetBehavior;
   protected TextView recognitionTextView,
-      recognition1TextView,
-      recognition2TextView,
       recognitionValueTextView,
-      recognition1ValueTextView,
-      recognition2ValueTextView;
-  protected TextView frameValueTextView,
-      cropValueTextView,
-      cameraResolutionTextView,
-      rotationTextView,
-      inferenceTimeTextView;
+      composed_text;
+  protected TextView inferenceTimeTextView;
   protected ImageView bottomSheetArrowImageView;
   private ImageView plusImageView, minusImageView;
-  private Spinner modelSpinner;
   private Spinner deviceSpinner;
   private TextView threadsTextView;
 
-  private Model model = Model.QUANTIZED_EFFICIENTNET;
+  private Model model = Model.QUANTIZED_MOBILENET;
   private Device device = Device.CPU;
   private int numThreads = -1;
 
-  Button button_back;
+  protected Button button_back,
+            button_space,
+            button_delete,
+            button_sweep;
+
+  protected String active_latter;
+  protected int active_latter_number = 0, composedSpeed = 5;
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -121,16 +119,44 @@ public abstract class CameraActivity extends AppCompatActivity
       requestPermission();
     }
 
-    threadsTextView = findViewById(R.id.threads);
+    threadsTextView = findViewById(R.id.thread);
     plusImageView = findViewById(R.id.plus);
     minusImageView = findViewById(R.id.minus);
-    modelSpinner = findViewById(R.id.model_spinner);
     deviceSpinner = findViewById(R.id.device_spinner);
     bottomSheetLayout = findViewById(R.id.bottom_sheet_layout);
     gestureLayout = findViewById(R.id.gesture_layout);
     sheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
     bottomSheetArrowImageView = findViewById(R.id.bottom_sheet_arrow);
-    button_back = (Button)findViewById(R.id.button_back);
+    button_back = findViewById(R.id.button_back);
+    button_delete = findViewById(R.id.delete);
+    button_space = findViewById(R.id.space);
+    button_sweep = findViewById(R.id.sweep);
+    composed_text = findViewById(R.id.composed_text);
+
+    button_delete.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        String str = composed_text.getText().toString().trim();
+        if(str.length()!=0){
+          str  = str.substring( 0, str.length() - 1 );
+          composed_text.setText ( str );
+        }
+      }
+    });
+
+    button_space.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        composed_text.setText(composed_text.getText() + " ");
+      }
+    });
+
+    button_sweep.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        composed_text.setText("");
+      }
+    });
 
     button_back.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -189,24 +215,14 @@ public abstract class CameraActivity extends AppCompatActivity
 
     recognitionTextView = findViewById(R.id.detected_item);
     recognitionValueTextView = findViewById(R.id.detected_item_value);
-    recognition1TextView = findViewById(R.id.detected_item1);
-    recognition1ValueTextView = findViewById(R.id.detected_item1_value);
-    recognition2TextView = findViewById(R.id.detected_item2);
-    recognition2ValueTextView = findViewById(R.id.detected_item2_value);
 
-    frameValueTextView = findViewById(R.id.frame_info);
-    cropValueTextView = findViewById(R.id.crop_info);
-    cameraResolutionTextView = findViewById(R.id.view_info);
-    rotationTextView = findViewById(R.id.rotation_info);
     inferenceTimeTextView = findViewById(R.id.inference_info);
 
-    modelSpinner.setOnItemSelectedListener(this);
     deviceSpinner.setOnItemSelectedListener(this);
 
     plusImageView.setOnClickListener(this);
     minusImageView.setOnClickListener(this);
 
-    model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
     device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
     numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
   }
@@ -536,47 +552,42 @@ public abstract class CameraActivity extends AppCompatActivity
 
   @UiThread
   protected void showResultsInBottomSheet(List<Recognition> results) {
-    if (results != null && results.size() >= 3) {
+    if (results != null && results.size() >= 1) {
       Recognition recognition = results.get(0);
       if (recognition != null) {
-        if (recognition.getTitle() != null) recognitionTextView.setText(recognition.getTitle());
+        if (recognition.getTitle() != null){
+          recognitionTextView.setText(recognition.getTitle());
+
+          if (recognition.getTitle().equals("space")){
+            recognitionTextView.setText("Boşluk Bırakıldı.");
+            composed_text.setText(composed_text.getText() + " ");
+          }
+          else if (recognition.getTitle().equals("del")){
+            recognitionTextView.setText("Harf Silindi.");
+            button_delete.callOnClick();
+          }
+          else if (recognition.getTitle().equals("nothing")){
+            recognitionTextView.setText("Harf Bulunamadı.");
+            // do nothing
+          }
+          else {
+            if (recognition.getTitle() == active_latter) {
+              active_latter_number += 1;
+              if (active_latter_number >= 5) {
+                composed_text.setText(composed_text.getText() + active_latter);
+              } else {
+                //do nothing
+              }
+            } else {
+              active_latter = recognition.getTitle();
+              active_latter_number = 1;
+            }
+          }
+        }
         if (recognition.getConfidence() != null)
-          recognitionValueTextView.setText(
-              String.format("%.2f", (100 * recognition.getConfidence())) + "%");
-      }
-
-      Recognition recognition1 = results.get(1);
-      if (recognition1 != null) {
-        if (recognition1.getTitle() != null) recognition1TextView.setText(recognition1.getTitle());
-        if (recognition1.getConfidence() != null)
-          recognition1ValueTextView.setText(
-              String.format("%.2f", (100 * recognition1.getConfidence())) + "%");
-      }
-
-      Recognition recognition2 = results.get(2);
-      if (recognition2 != null) {
-        if (recognition2.getTitle() != null) recognition2TextView.setText(recognition2.getTitle());
-        if (recognition2.getConfidence() != null)
-          recognition2ValueTextView.setText(
-              String.format("%.2f", (100 * recognition2.getConfidence())) + "%");
+          recognitionValueTextView.setText(String.format("%.2f", (10000 * recognition.getConfidence())) + "%");
       }
     }
-  }
-
-  protected void showFrameInfo(String frameInfo) {
-    frameValueTextView.setText(frameInfo);
-  }
-
-  protected void showCropInfo(String cropInfo) {
-    cropValueTextView.setText(cropInfo);
-  }
-
-  protected void showCameraResolution(String cameraInfo) {
-    cameraResolutionTextView.setText(cameraInfo);
-  }
-
-  protected void showRotationInfo(String rotation) {
-    rotationTextView.setText(rotation);
   }
 
   protected void showInference(String inferenceTime) {
@@ -585,14 +596,6 @@ public abstract class CameraActivity extends AppCompatActivity
 
   protected Model getModel() {
     return model;
-  }
-
-  private void setModel(Model model) {
-    if (this.model != model) {
-      LOGGER.d("Updating  model: " + model);
-      this.model = model;
-      onInferenceConfigurationChanged();
-    }
   }
 
   protected Device getDevice() {
@@ -654,9 +657,7 @@ public abstract class CameraActivity extends AppCompatActivity
 
   @Override
   public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-    if (parent == modelSpinner) {
-      setModel(Model.valueOf(parent.getItemAtPosition(pos).toString().toUpperCase()));
-    } else if (parent == deviceSpinner) {
+    if (parent == deviceSpinner) {
       setDevice(Device.valueOf(parent.getItemAtPosition(pos).toString()));
     }
   }

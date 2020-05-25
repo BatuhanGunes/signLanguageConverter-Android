@@ -101,10 +101,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
                     @Override
                     public void run() {
                       showResultsInBottomSheet(results);
-                      showFrameInfo(previewWidth + "x" + previewHeight);
-                      showCropInfo(imageSizeX + "x" + imageSizeY);
-                      showCameraResolution(cropSize + "x" + cropSize);
-                      showRotationInfo(String.valueOf(sensorOrientation));
                       showInference(lastProcessingTimeMs + "ms");
                     }
                   });
@@ -131,15 +127,6 @@ public class ClassifierActivity extends CameraActivity implements OnImageAvailab
       LOGGER.d("Closing classifier.");
       classifier.close();
       classifier = null;
-    }
-    if (device == Device.GPU
-        && (model == Model.QUANTIZED_MOBILENET || model == Model.QUANTIZED_EFFICIENTNET)) {
-      LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
-      runOnUiThread(
-          () -> {
-            Toast.makeText(this, R.string.tfe_ic_gpu_quant_error, Toast.LENGTH_LONG).show();
-          });
-      return;
     }
     try {
       LOGGER.d(

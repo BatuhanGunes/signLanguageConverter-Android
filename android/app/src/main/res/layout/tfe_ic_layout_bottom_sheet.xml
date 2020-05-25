@@ -50,6 +50,13 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Metin oluşturmak için harfleri tanıtmaya başlayınız." />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,19 +64,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/detected_item1"
+                android:id="@+id/composed_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/detected_item1_value"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="12sp" />
+                android:layout_weight="1"
+                android:maxLines="3"
+                android:lines="3"
+                android:textSize="16sp"
+                android:text="" />
 
         </LinearLayout>
 
@@ -79,20 +81,26 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/detected_item2"
+            <Button
+                android:id="@+id/space"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="12sp" />
+                android:layout_weight="1"
+                android:text="Boşluk" />
 
-            <TextView
-                android:id="@+id/detected_item2_value"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="12sp" />
+                android:layout_weight="1"
+                android:text="Sil" />
+
+            <Button
+                android:id="@+id/sweep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Temizle" />
 
         </LinearLayout>
 
@@ -109,103 +117,11 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/frame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Frame"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/frame_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="right"
-            android:text="640*480"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/crop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Crop"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/crop_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="right"
-            android:text="640*480"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="View"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/view_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="right"
-            android:text="640*480"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/rotation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Rotation"
-            android:textColor="@android:color/black" />
-
-        <TextView
-            android:id="@+id/rotation_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="right"
-            android:text="640*480"
-            android:textColor="@android:color/black" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
             android:id="@+id/inference"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Inference Time"
+            android:text="Çıkarım Süresi:"
             android:textColor="@android:color/black" />
 
         <TextView
@@ -218,12 +134,6 @@
             android:textColor="@android:color/black" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -234,7 +144,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Threads"
+            android:text="İş Paçacığı Sayısı:"
             android:textColor="@android:color/black" />
 
         <LinearLayout
@@ -253,7 +163,7 @@
                 android:src="@drawable/ic_baseline_remove" />
 
             <TextView
-                android:id="@+id/threads"
+                android:id="@+id/thread"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -261,6 +171,7 @@
                 android:text="1"
                 android:textColor="@android:color/black"
                 android:textSize="14sp" />
+
             <ImageView
                 android:id="@+id/plus"
                 android:layout_width="wrap_content"
@@ -270,12 +181,6 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginTop="10dp"
-        android:background="@android:color/darker_gray" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -285,36 +190,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/tfe_ic_model"
-            android:textColor="@android:color/black" />
-
-        <Spinner
-            android:id="@+id/model_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_alignParentRight="true"
-            android:entries="@array/tfe_ic_models"
-            android:prompt="@string/tfe_ic_model" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/tfe_ic_device"
+            android:text="Algılayıcı:"
             android:textColor="@android:color/black" />
 
         <Spinner
             android:id="@+id/device_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
             android:entries="@array/tfe_ic_devices"
             android:prompt="@string/tfe_ic_device" />
     </RelativeLayout>

@@ -51,21 +51,17 @@ public abstract class Classifier {
 
   /** The model type used for classification. */
   public enum Model {
-    FLOAT_MOBILENET,
-    QUANTIZED_MOBILENET,
-    FLOAT_EFFICIENTNET,
-    QUANTIZED_EFFICIENTNET
+    QUANTIZED_MOBILENET
   }
 
   /** The runtime device type used for executing classification. */
   public enum Device {
     CPU,
-    NNAPI,
-    GPU
+    NNAPI
   }
 
   /** Number of results to show in the UI. */
-  private static final int MAX_RESULTS = 3;
+  private static final int MAX_RESULTS = 1;
 
   /** The loaded TensorFlow Lite model. */
   private MappedByteBuffer tfliteModel;
@@ -111,17 +107,7 @@ public abstract class Classifier {
    */
   public static Classifier create(Activity activity, Model model, Device device, int numThreads)
       throws IOException {
-    if (model == Model.QUANTIZED_MOBILENET) {
       return new ClassifierQuantizedMobileNet(activity, device, numThreads);
-    } else if (model == Model.FLOAT_MOBILENET) {
-      return new ClassifierFloatMobileNet(activity, device, numThreads);
-    } else if (model == Model.FLOAT_EFFICIENTNET) {
-      return new ClassifierFloatEfficientNet(activity, device, numThreads);
-    } else if (model == Model.QUANTIZED_EFFICIENTNET) {
-      return new ClassifierQuantizedEfficientNet(activity, device, numThreads);
-    } else {
-      throw new UnsupportedOperationException();
-    }
   }
 
   /** An immutable result returned by a Classifier describing what was recognized. */
@@ -201,10 +187,6 @@ public abstract class Classifier {
       case NNAPI:
         nnApiDelegate = new NnApiDelegate();
         tfliteOptions.addDelegate(nnApiDelegate);
-        break;
-      case GPU:
-        gpuDelegate = new GpuDelegate();
-        tfliteOptions.addDelegate(gpuDelegate);
         break;
       case CPU:
         break;

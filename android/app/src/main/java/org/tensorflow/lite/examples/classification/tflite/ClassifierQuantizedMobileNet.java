@@ -17,7 +17,7 @@ package org.tensorflow.lite.examples.classification.tflite;
 
 import android.app.Activity;
 import java.io.IOException;
-import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
+
 import org.tensorflow.lite.support.common.TensorOperator;
 import org.tensorflow.lite.support.common.ops.NormalizeOp;
 
@@ -52,12 +52,12 @@ public class ClassifierQuantizedMobileNet extends Classifier {
     // you can download this file from
     // see build.gradle for where to obtain this file. It should be auto
     // downloaded into assets.
-    return "mobilenet_v1_1.0_224_quant.tflite";
+    return "model/tr_signLanguage_model.tflite";
   }
 
   @Override
   protected String getLabelPath() {
-    return "labels.txt";
+    return "model/labels.txt";
   }
 
   @Override

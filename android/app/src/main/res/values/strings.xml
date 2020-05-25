@@ -4,10 +4,7 @@
     <string name="tfe_ic_gpu_quant_error" translation_description="Error regarding GPU support for Quant models[CHAR_LIMIT=60]">GPU henüz nicelenmiş modelleri desteklemiyor.</string>
     <string name="tfe_ic_model" translatable="false">Model:</string>
     <string-array name="tfe_ic_models" translatable="false">
-        <item>QUANTIZED_EFFICIENTNET</item>
-        <item>FLOAT_EFFICIENTNET</item>
         <item>QUANTIZED_MOBILENET</item>
-        <item>FLOAT_MOBILENET</item>
     </string-array>
 
     <string name="tfe_ic_device" translatable="false">Device:</string>
@@ -30,7 +27,6 @@
     <string name="ceviriye_basla_camera">Çeviriye Başla</string>
     <string-array name="tfe_ic_devices" translatable="false">
         <item>CPU</item>
-        <item>GPU</item>
         <item>NNAPI</item>
     </string-array>
 
@@ -78,4 +74,5 @@
     <string name="_100">100</string>
     <string name="sozluk_main_screen">SÖZLÜK</string>
     <string name="hakkimizda">Hakkımızda</string>
+    <string name="five">5</string>
 </resources>
