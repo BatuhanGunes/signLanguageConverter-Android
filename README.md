@@ -2,7 +2,7 @@
 
 # Sign Language Converter
 
-## Overview
+### Overview
 This project was developed using computer vision and deep learning methods. It tries to eliminate communication problems between a person who does not know sign language and those who communicate with sign language. The user, who does not know the sign language, can perceive the meaning of the movements made with the sign language thanks to this application on his phone. For this, the application is opened and the image of the person using the sign language is taken. In this live image, the meanings of the signs are derived using deep learning methods. These meanings are conveyed to the user by voice or in writing. At the same time, the meaning of all signs is presented to the user on a different page. 
 
 You can also see 
@@ -67,3 +67,16 @@ Connect the Android device to the computer and be sure to approve any ADB permis
 <img src="android/images/classifydemo_img8.png?raw=true" style="width: 80%" />
 
 To test the app, open the app called `TFL Classify` on your device. When you run the app the first time, the app will request permission to access the camera. Re-installing the app may require you to uninstall the previous installations.
+
+## Authors
+
+* **Batuhan Güneş**  - [BatuhanGunes](https://github.com/BatuhanGunes)
+* **Hasan Hüseyin Öztunç**  - [hasanhoztunc](https://github.com/hasanhoztunc)
+* **Muhammed Emin Berkay Kocaoğlu**  - [mebon](https://github.com/mebon)
+
+See also the list of [contributors](https://github.com/BatuhanGunes/signLanguageConverter-Android/graphs/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the Apache License - see the [LICENSE.md](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/LICENSE) file for details.
+
