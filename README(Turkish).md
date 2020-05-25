@@ -50,9 +50,9 @@ Android Studio'da signLanguageConverter kaynak kodunu açın. Bunu yapmak için 
 
 `Build -> Make Project` ı seçin ve projenin başarıyla oluşturulduğunu kontrol edin. Android SDK sürümünü projenin ayarlarını yapılandırarak elde etmeniz gerekecek. En az 23. sürüm olan SDK'ya ihtiyacınız olacak. Gerekli yapılandırmaları yaptıktan sonra `build.gradle` dosyası eksik olan kütüphaneleri indirmenizi ister.
 
-<img src="images/classifydemo_img4.png?raw=true" style="width: 40%" />
+<img src="android/images/classifydemo_img4.png?raw=true" style="width: 40%" />
 
-<img src="images/classifydemo_img2.png?raw=true" style="width: 60%" />
+<img src="android/images/classifydemo_img2.png?raw=true" style="width: 60%" />
 
 <aside class="note"><b>Not:</b><p>`build.gradle` TensorFlow Lite'ın nightly sürümünü kullanmak üzere yapılandırıldı. Tensorflow Lite'ın Java API'sı ile ilgili bir derleme veya uyumluluk hatası görürseniz (örneğin, `method X is undefined for type Interpreter`), büyük olasılıkla API'de geriye dönük olarak bir değişiklik olmuştur. Böyle bir durumda [TensorFlow Lite android examples](https://github.com/tensorflow/examples/tree/master/lite/examples/image_classification/android) deposunu klonlamanız ve gerçekleşen değişiklikleri bu projeye dahil etmeniz gerekmektedir.
 
