@@ -25,6 +25,7 @@ Bu işlemler her resim için uygulandı ama bir resim için tüm bu özellikleri
  <img align="center" width="1000" height="550" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/dataAug2.jpg">  
 ## Model Oluşturma
 ## Model Test Etme
+Eğittimizi modeli android ortamında çalıştırmadan yani [model dönüştürme](#model-test-etme) işlemi yapmadan önce PyCharm üzerinden test ettik. 
 ## Model Dönüştürme
 
 
