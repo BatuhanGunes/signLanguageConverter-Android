@@ -1,3 +1,5 @@
+# Model
+Modelimiz Türkçe alfabenin işaret dilinin datasetini içerdiği ve MobileNet modelini base alarak, yaklaşık 15 saat boyunca eğitildiği CNN(Konvolüsyonel Sinir Ağları) yapısında bir image classification(Resim Sınıflandırma) işlemi yapan deep learnning(Derin öğrenme) gerçekleştirmiş bir modeldir.
 # Dataset ve Model Olusturma  
 1-[Dataset Oluşturma](#dataset-oluşturma)  
 2-[Data Augmentation](#data-augmentation)  
