@@ -8,7 +8,7 @@ Bu proje, bilgisayarlı görü ile derin öğrenme yöntemlerini kullanarak işa
 Ayrıca bu belgelerede bakabilirsiniz:
 - Proje hakkında teknik ve detaylı bilgi almak için [Sing Language Description](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/SingLanguageDescription.pdf) sayfasını inceleyebilirsiniz. 
 - Algoritma ile ilgili açıklamaları [Explore The_Code](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/README(Turkish).md) sayfasını inceleyebilirsiniz.
-- Model ile ilgili açıklamaları [Explore The_Model]() sayfasını inceleyebilirsiniz.  // Yönlendirme yok berkay ekleyecek. Not Türkçe ve ingilizce olarak 2 belge var ise buraya türkçe dosya yönlendirilecek
+- Model ile ilgili açıklamaları [Explore The_Model](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/README.md) sayfasını inceleyebilirsiniz.
 
 Not: Bu projede işaret dili olarak "Türk İşaret Dili"  kullanılmıştır.
 
