@@ -25,7 +25,10 @@ Bu işlemler her resim için uygulandı ama bir resim için tüm bu özellikleri
  <img align="center" width="1000" height="550" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/dataAug2.jpg">  
 ## Model Oluşturma
 ## Model Test Etme
-Eğittimizi modeli android ortamında çalıştırmadan yani [model dönüştürme](#model-test-etme) işlemi yapmadan önce PyCharm üzerinden test ettik. 
+Eğittimiz modeli android ortamında çalıştırmadan yani [model dönüştürme](#model-test-etme) işlemi yapmadan önce PyCharm üzerinden test ettik. Seçtiğimiz bir resimleri sisteme dahil edip test edip sonuçları ise aşağıdaki gibi gözlemledik.  
+<img align="center" width="500" height="500" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/Figure_1.png">  
+Öncellikle load_model ile hazırladığımız modeli sisteme dahil ettik. Ardından compile ile bunu çalıştırdık. test metodumuz ile seçtiğimiz resmi model.predict_classes ile tahmin etme işlemine soktuk. Çıkan tahmin sonucunun bulunduğu sınıfın yani harfin ismini alıp bunu if döngüsüne sokup matploblib kütüphanesi ile ettiği tahmini ve kulladığımız resmi ekranda gösterdik. Bu işlemin gerçekleştirildiği kodlar ise aşağıda bulunmaktadır.
+<img align="center" width="1000" height="550" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/test1.jpg">
 ## Model Dönüştürme
 
 
