@@ -8,7 +8,7 @@ This project was developed using computer vision and deep learning methods. It t
 You can also see 
 - [`Sing Language Description`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/SingLanguageDescription.pdf) to get technical and detailed information about the project. 
 - Find explanations of the code on the [`Explore The_Code`](https://github.com/BatuhanGunes/signLanguageConverter-Android/tree/master/android).
-- Find explanations of the model on the [`Explore The Model`]() //Yönlendirme yok berkay ekleyecek.
+- Find explanations of the model on the [`Explore The Model`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/README.md)
 
 Note: "Turkish Sign Language" was used as sign language in this project.
 
