@@ -1,3 +1,5 @@
+**Dil :** [İngilizce](https://github.com/BatuhanGunes/signLanguageConverter-Android/tree/master/android) / Tükçe
+
 # İşaret Dili Çevirici
 
 Bu belge, cihaz kamerasını kullanarak görüntü sınıflandırması yapan bir Android mobil uygulamasının kodunu gösterir.
@@ -8,20 +10,21 @@ Bu belge, cihaz kamerasını kullanarak görüntü sınıflandırması yapan bir
 
 ### Kameradan Görüntü Alınması
 
-Bu mobil uygulama kamera girişini [`CameraActivity.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/CameraActivity.java) dosyasında tanımlanan fonksiyonları kullanarak alır. Bu dosya kamera izinlerini ayarlamak için [`AndroidManifest.xml`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/AndroidManifest.xml) dosyasına bağlıdır.
+Bu mobil uygulama kamera girişini [`CameraActivity.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/CameraActivity.java) dosyasında tanımlanan fonksiyonları kullanarak alır. Bu dosya kamera izinlerini ayarlamak için [`AndroidManifest.xml`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/AndroidManifest.xml) dosyasına bağlıdır.
 
 `CameraActivity` ayrıca kullanıcı arayüzünden kullanıcı tercihlerini yakalayarak diğer sınıfların kullanımını sağlar.
 
 ```java
+model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
 device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
 numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
 ```
 
 ### Sınıflandırıcı
 
-[`Classifier.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java) dosyası, kamera girişini işlemek ve çıkarım yapmak için karmaşık mantığın çoğunu içerir.
+[`Classifier.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java) dosyası, kamera girişini işlemek ve çıkarım yapmak için karmaşık mantığın çoğunu içerir.
 
-`Classifier.java` dosyasının Hem kayan nokta hem de 'nicelenmiş' modellerin kullanımını göstermek için [`ClassifierFloatMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierFloatMobileNet.java) ve [`ClassifierQuantizedMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java) olmak üzere iki alt sınıfı mevcuttur.
+`Classifier.java` dosyasının Hem kayan nokta hem de 'nicelenmiş' modellerin kullanımını göstermek için [`ClassifierFloatMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierFloatMobileNet.java) ve [`ClassifierQuantizedMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java) olmak üzere iki alt sınıfı mevcuttur.
 
 `Classifier` sınıfı, sağlanan türe göre (kayan noktaya göre niceliklendirilmiş) uygun alt sınıfı başlatmak için kullanılan statik bir yöntem olan "create" komutunu uygular. 
 
@@ -195,7 +198,7 @@ private static List<Recognition> getTopKProbability(
 
 ### Sonuçların Görüntülenmesi
 
-Classifier sınıfı çağrılır ve sonuçlar çıkartılır. Çıkarılan sonuçlar [`ClassifierActivity.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java) içindeki `processImage()` fonksiyonu tarafından görüntülenir.
+Classifier sınıfı çağrılır ve sonuçlar çıkartılır. Çıkarılan sonuçlar [`ClassifierActivity.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java) içindeki `processImage()` fonksiyonu tarafından görüntülenir.
 
 `ClassifierActivity`, kamera görüntüsünü oluşturan, sınıflandırmayı çalıştıran ve sonuçları görüntüleyen yöntem uygulamalarını içeren `CameraActivity`'nin bir alt sınıfıdır. `ProcessImage()` fonksiyonu, iş parçacığında yapılan sınıflandırmayı olabildiğince hızlı çalıştırır, çıkarımın engellenmesini ve gecikmenin oluşmasını önlemek için UI iş parçacığında bilgi oluşturur.
 
