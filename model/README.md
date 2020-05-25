@@ -30,6 +30,7 @@ Eğittimiz modeli android ortamında çalıştırmadan yani [model dönüştürm
 Öncellikle load_model ile hazırladığımız modeli sisteme dahil ettik. Ardından compile ile bunu çalıştırdık. test metodumuz ile seçtiğimiz resmi model.predict_classes ile tahmin etme işlemine soktuk. Çıkan tahmin sonucunun bulunduğu sınıfın yani harfin ismini alıp bunu if döngüsüne sokup matploblib kütüphanesi ile ettiği tahmini ve kulladığımız resmi ekranda gösterdik. Bu işlemin gerçekleştirildiği kodlar ise aşağıda bulunmaktadır.
 <img align="center" width="1000" height="550" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/test1.jpg">
 ## Model Dönüştürme
-
+Tensorflow ve keras yardımıyla eğittimiz modelimizi, TFLiteConverter.from_keras_model_file metodu ile programa dahil edip bunu bir değişkene atadık. Ardından bu değişken ile convert metodunu çağırarak modelimizi tflite modele çevirdik. Ardından bunu da dosya yazma işlemlerinde kullanulan metod ile kaydettik.
+<img align="center" width="1000" height="550" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/tutorial_images/convert.jpg">
 
 [Başa Dön](#dataset-ve-model-olusturma)
