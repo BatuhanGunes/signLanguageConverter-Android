@@ -66,7 +66,7 @@ Connect the Android device to the computer and be sure to approve any ADB permis
 
 <img src="android/images/classifydemo_img8.png?raw=true" style="width: 80%" />
 
-To test the app, open the app called `TFL Classify` on your device. When you run the app the first time, the app will request permission to access the camera. Re-installing the app may require you to uninstall the previous installations.
+To test the app, open the app called `İşaret dili Çevirici` on your device. When you run the app the first time, the app will request permission to access the camera. Re-installing the app may require you to uninstall the previous installations.
 
 ## Authors
 
