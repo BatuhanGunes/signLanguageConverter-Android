@@ -1,4 +1,6 @@
-# TensorFlow Lite Android image classification example
+**Language :** English / [Turkish](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/README(Turkish).md)
+
+# Sign Language Converter
 
 This document shows the code of an Android mobile app that classifies images using the device camera.
 
