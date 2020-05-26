@@ -13,7 +13,6 @@ This mobile application gets the camera input using the functions defined in the
 `CameraActivity` also contains code to capture user preferences from the UI and make them available to other classes via convenience methods.
 
 ```java
-model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
 device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
 numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
 ```
@@ -22,14 +21,13 @@ numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
 
 The file [`Classifier.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java) contains most of the complex logic for processing the camera input and running inference.
 
-Two subclasses of the file exist, in [`ClassifierFloatMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierFloatMobileNet.java)
-and [`ClassifierQuantizedMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java), to demonstrate the use of both floating point and quantized models.
+Classifier.java class has a subclass called [`ClassifierQuantizedMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java) which enables the use of 'Quantized' models.
 
-The `Classifier` class implements a static method, `create`, which is used to instantiate the appropriate subclass based on the supplied model type (quantized vs floating point).
+The Classifier class calls the model of the Quantized type by running the static method `create`.
 
 #### Load model and create interpreter
 
-To perform inference, we need to load a model file and instantiate an `Interpreter`. This happens in the constructor of the `Classifier` class, along with loading the list of class labels. Information about the device type and number of threads is used to configure the `Interpreter` via the `Interpreter.Options` instance passed into its constructor. Note that if a GPU, DSP (Digital Signal Processor) or NPU (Neural Processing Unit) is available, a `Delegate` can be used to take full advantage of these hardware.
+To perform inference, we need to load a model file and instantiate an `Interpreter`. This happens in the constructor of the `Classifier` class, along with loading the list of class labels. Information about the device type and number of threads is used to configure the `Interpreter` via the `Interpreter.Options` instance passed into its constructor. Note that if a DSP (Digital Signal Processor) or NPU (Neural Processing Unit) is available, a `Delegate` can be used to take full advantage of these hardware.
 
 Please note that there are performance edge cases and developers are adviced to test with a representative set of devices prior to production.
 
@@ -42,17 +40,12 @@ protected Classifier(Activity activity, Device device, int numThreads) throws
       nnApiDelegate = new NnApiDelegate();
       tfliteOptions.addDelegate(nnApiDelegate);
       break;
-    case GPU:
-      gpuDelegate = new GpuDelegate();
-      tfliteOptions.addDelegate(gpuDelegate);
-      break;
     case CPU:
       break;
   }
   tfliteOptions.setNumThreads(numThreads);
   tflite = new Interpreter(tfliteModel, tfliteOptions);
   labels = FileUtil.loadLabels(activity, getLabelPath());
-...
 ```
 
 For Android devices, we recommend pre-loading and memory mapping the model file to offer faster load times and reduce the dirty pages in memory. The method `FileUtil.loadMappedFile` does this, returning a `MappedByteBuffer` containing the model.
@@ -83,22 +76,6 @@ private TensorImage loadImage(final Bitmap bitmap, int sensorOrientation) {
 }
 ```
 
-The pre-processing is largely the same for quantized and float models with one exception: Normalization.
-
-In `ClassifierFloatMobileNet`, the normalization parameters are defined as:
-
-```java
-private static final float IMAGE_MEAN = 127.5f;
-private static final float IMAGE_STD = 127.5f;
-```
-
-In `ClassifierQuantizedMobileNet`, normalization is not required. Thus the nomalization parameters are defined as:
-
-```java
-private static final float IMAGE_MEAN = 0.0f;
-private static final float IMAGE_STD = 1.0f;
-```
-
 #### Allocate output object
 
 Initiate the output `TensorBuffer` for the output of the model.
@@ -124,20 +101,13 @@ probabilityProcessor =
     new TensorProcessor.Builder().add(getPostprocessNormalizeOp()).build();
 ```
 
-For quantized models, we need to de-quantize the prediction with the NormalizeOp (as they are all essentially linear transformation). For float model, de-quantize is not required. But to uniform the API, de-quantize is added to float model too. Mean and std are set to 0.0f and 1.0f, respectively. To be more specific,
+For quantized models, it is necessary to quantify estimates with Normalize. To be more specific,
 
 In `ClassifierQuantizedMobileNet`, the normalized parameters are defined as:
 
 ```java
 private static final float PROBABILITY_MEAN = 0.0f;
 private static final float PROBABILITY_STD = 255.0f;
-```
-
-In `ClassifierFloatMobileNet`, the normalized parameters are defined as:
-
-```java
-private static final float PROBABILITY_MEAN = 0.0f;
-private static final float PROBABILITY_MEAN = 1.0f;
 ```
 
 #### Run inference
@@ -151,7 +121,7 @@ tflite.run(inputImageBuffer.getBuffer(),
 
 #### Recognize image
 
-Rather than call `run` directly, the method `recognizeImage` is used. It accepts a bitmap and sensor orientation, runs inference, and returns a sorted `List` of `Recognition` instances, each corresponding to a label. The method will return a number of results bounded by `MAX_RESULTS`, which is 3 by default.
+Rather than call `run` directly, the method `recognizeImage` is used. It accepts a bitmap and sensor orientation, runs inference, and returns a sorted `List` of `Recognition` instances, each corresponding to a label. The method will return a number of results bounded by `MAX_RESULTS`, which is 1 by default.
 
 `Recognition` is a simple class that contains information about a specific recognition result, including its `title` and `confidence`. Using the post-processing normalization method specified, the confidence is converted to between 0 and 1 of a given class being represented by the image.
 
@@ -226,10 +196,6 @@ protected void processImage() {
                   @Override
                   public void run() {
                     showResultsInBottomSheet(results);
-                    showFrameInfo(previewWidth + "x" + previewHeight);
-                    showCropInfo(imageSizeX + "x" + imageSizeY);
-                    showCameraResolution(imageSizeX + "x" + imageSizeY);
-                    showRotationInfo(String.valueOf(sensorOrientation));
                     showInference(lastProcessingTimeMs + "ms");
                   }
                 });
@@ -249,16 +215,6 @@ private void recreateClassifier(Model model, Device device, int numThreads) {
     classifier.close();
     classifier = null;
   }
-  if (device == Device.GPU && model == Model.QUANTIZED) {
-    LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
-    runOnUiThread(
-        () -> {
-          Toast.makeText(this, "GPU does not yet supported quantized models.",
-              Toast.LENGTH_LONG)
-              .show();
-        });
-    return;
-  }
   try {
     LOGGER.d(
         "Creating classifier (model=%s, device=%s, numThreads=%d)", model,
@@ -268,4 +224,49 @@ private void recreateClassifier(Model model, Device device, int numThreads) {
     LOGGER.e(e, "Failed to create classifier.");
   }
 }
+```
+
+### Display results
+
+By reading the data of the list in which the results are recorded in the `showResultsInBottomSheet` method in the `CameraActivity` class, it can be processed according to the type of incoming data. Incoming data is written in the texview area where the text will be created. We have ensured the verification of the incoming data so that small detection errors that may occur and the system can work more stable.
+
+```java
+protected void showResultsInBottomSheet(List<Recognition> results) {
+    if (results != null && results.size() >= 1) {
+      Recognition recognition = results.get(0);
+      if (recognition != null) {
+        if (recognition.getTitle() != null){
+          recognitionTextView.setText(recognition.getTitle());
+
+          if (recognition.getTitle().equals("space")){
+            recognitionTextView.setText("Boşluk Bırakıldı.");
+            composed_text.setText(composed_text.getText() + " ");
+          }
+          else if (recognition.getTitle().equals("del")){
+            recognitionTextView.setText("Harf Silindi.");
+            button_delete.callOnClick();
+          }
+          else if (recognition.getTitle().equals("nothing")){
+            recognitionTextView.setText("Harf Bulunamadı.");
+            // do nothing
+          }
+          else {
+            if (recognition.getTitle() == active_latter) {
+              active_latter_number += 1;
+              if (active_latter_number >= 5) {
+                composed_text.setText(composed_text.getText() + active_latter);
+              } else {
+                //do nothing
+              }
+            } else {
+              active_latter = recognition.getTitle();
+              active_latter_number = 1;
+            }
+          }
+        }
+        if (recognition.getConfidence() != null)
+          recognitionValueTextView.setText(String.format("%.2f", (10000 * recognition.getConfidence())) + "%");
+      }
+    }
+  }
 ```
