@@ -14,9 +14,15 @@ Ayrıca bu belgelerede bakabilirsiniz:
 
 Modelimiz Türkçe alfabenin işaret dilinin datasetini içerdiği ve MobileNet modelini base alarak, yaklaşık 15 saat boyunca eğitildiği CNN(Konvolüsyonel Sinir Ağları) yapısında bir image classification(Resim Sınıflandırma) işlemi yapan deep learnning(Derin öğrenme) gerçekleştirmiş bir modeldir.
 
-## Ekran Görüntüleri
+## Akış Diyagramı
 
 <img align="center" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/flow_diagram.png">
+
+## Ekran Görüntüleri
+
+<img align="center" width="225" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/main.png">  <img align="center" width="225" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/c.png"> <img align="center" width="225" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/e.png">  <img align="center" width="225" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/d.png">
+
+<img align="center" width="225" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/j.png">  <img align="center" width="225" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/k.png">  <img align="center" width="225" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/a.png">   <img align="center" width="225" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/apk.gif">
 
 ## Başlangıç
 
