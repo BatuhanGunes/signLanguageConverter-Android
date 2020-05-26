@@ -2,23 +2,21 @@
 
 # İşaret Dili Çeviricisi
 
-### Overview
+### Ön Söz
 Bu proje, bilgisayarlı görü ile derin öğrenme yöntemlerini kullanarak işaret dili bilmeyen bir insan ile işaret dili ile iletişim kuran bir insanın arasındaki iletişim problemlerini ortadan kaldırmaya çalışmaktadır. İşaret dili bilmeyen kullanıcı telefonundaki bu uygulama sayesinde işaret dili ile yapılan hareketlerin anlamlarını algılayabilmektedir. Bunun için uygulama açılır ve işaret dili kullanan kişinin görüntüsü alınır. Bu görüntü üzerinde canlı olarak derin öğrenme yöntemleri ile işaretlerin anlamları çıkartılır. Bu anlamlar diğer kullanıcıya sesli veya yazılı olarak aktarılır. Aynı zamanda işaret dili sözlüğü olabilicek şekilde işaretlerin anlamları farklı bir sayfada kullanıcıya sunulmaktadır. 
 
 Ayrıca bu belgelerede bakabilirsiniz:
-- Proje hakkında teknik ve detaylı bilgi almak için [Sing Language Description](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/SingLanguageDescription.pdf) sayfasını inceleyebilirsiniz. 
 - Algoritma ile ilgili açıklamaları [Explore The_Code](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/README(Turkish).md) sayfasını inceleyebilirsiniz.
 - Model ile ilgili açıklamaları [Explore The_Model](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/README.md) sayfasını inceleyebilirsiniz.
-
-Not: Bu projede işaret dili olarak "Türk İşaret Dili"  kullanılmıştır.
+- Proje hakkında teknik ve detaylı bilgi almak için [Sing Language Description](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/SingLanguageDescription.pdf) sayfasını inceleyebilirsiniz. 
 
 ### Model
 
-// berkay Oluşturacak. Kısa Tek Paragraflık Modelin anlatımı
+Modelimiz Türkçe alfabenin işaret dilinin datasetini içerdiği ve MobileNet modelini base alarak, yaklaşık 15 saat boyunca eğitildiği CNN(Konvolüsyonel Sinir Ağları) yapısında bir image classification(Resim Sınıflandırma) işlemi yapan deep learnning(Derin öğrenme) gerçekleştirmiş bir modeldir.
 
 ## Ekran Görüntüleri
 
-<img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/main.png"> <img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/dictionary.png"> <img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/about_us.png">
+<img align="center" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/flow_diagram.png">
 
 ## Başlangıç
 
