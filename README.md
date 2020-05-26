@@ -6,19 +6,17 @@
 This project was developed using computer vision and deep learning methods. It tries to eliminate communication problems between a person who does not know sign language and those who communicate with sign language. The user, who does not know the sign language, can perceive the meaning of the movements made with the sign language thanks to this application on his phone. For this, the application is opened and the image of the person using the sign language is taken. In this live image, the meanings of the signs are derived using deep learning methods. These meanings are conveyed to the user by voice or in writing. At the same time, the meaning of all signs is presented to the user on a different page. 
 
 You can also see 
-- [`Sing Language Description`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/SingLanguageDescription.pdf) to get technical and detailed information about the project. 
 - Find explanations of the code on the [`Explore The_Code`](https://github.com/BatuhanGunes/signLanguageConverter-Android/tree/master/android).
 - Find explanations of the model on the [`Explore The Model`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/Model/model/README.md)
-
-Note: "Turkish Sign Language" was used as sign language in this project.
+- [`Sing Language Description`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/SingLanguageDescription.pdf) to get technical and detailed information about the project. 
 
 ### Model
 
-// berkay Oluşturacak. Kısa Tek Paragraflık Modelin anlatımı
+Our model is a deep learnning model that includes a dataset of the sign language of the Turkish alphabet and conducts transfer learning with the MobileNet model and performs an image classification in CNN (Convolutional Neural Networks) structure, where it is trained for about 15 hours.
 
-## Screenshots
+## Flow diagram
 
-<img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/main.png"> <img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/dictionary.png"> <img align="center" width="200" height="375" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/documentation/android/images/about_us.png">
+<img align="center" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/flow_diagram.png"> 
 
 ## Getting Started
 
