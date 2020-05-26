@@ -18,6 +18,12 @@ Our model is a deep learnning model that includes a dataset of the sign language
 
 <img align="center" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/flow_diagram.png"> 
 
+## Screenshots
+
+<img align="center" width="220" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/main.png">  <img align="center" width="220" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/c.png"> <img align="center" width="220" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/e.png">  <img align="center" width="220" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/d.png">
+
+<img align="center" width="220" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/j.png">  <img align="center" width="220" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/k.png">  <img align="center" width="220" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/a.png">   <img align="center" width="220" height="350" src="https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/images/apk.gif">
+
 ## Getting Started
 
 Download a copy of the project files to your local machine to run the project. Once you have the required environments, you can open the project and run it in this environment. You can run the program on an android device.
