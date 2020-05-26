@@ -71,10 +71,5 @@ def test(filePath):
     plt.imshow(img)
     plt.show()
 
-#test('tr_signLanguage_dataset/M.jpg')
-#test('tr_signLanguage_dataset/test/V.jpg')
-test('tr_signLanguage_dataset/test/Z.jpg')
-#test('tr_signLanguage_dataset/test/A.0.jpg')
-#test('tr_signLanguage_dataset/validation/Z/Z (80).png')
-#test('tr_signLanguage_dataset/validation/K/K (80).png')
-#test('tr_signLanguage_dataset/validation/B/B.80.png')
+
+test('tr_signLanguage_dataset/deneme.jpg')
