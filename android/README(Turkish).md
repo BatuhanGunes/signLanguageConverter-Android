@@ -15,7 +15,6 @@ Bu mobil uygulama kamera girişini [`CameraActivity.java`](https://github.com/Ba
 `CameraActivity` ayrıca kullanıcı arayüzünden kullanıcı tercihlerini yakalayarak diğer sınıfların kullanımını sağlar.
 
 ```java
-model = Model.valueOf(modelSpinner.getSelectedItem().toString().toUpperCase());
 device = Device.valueOf(deviceSpinner.getSelectedItem().toString());
 numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
 ```
@@ -24,13 +23,13 @@ numThreads = Integer.parseInt(threadsTextView.getText().toString().trim());
 
 [`Classifier.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/Classifier.java) dosyası, kamera girişini işlemek ve çıkarım yapmak için karmaşık mantığın çoğunu içerir.
 
-`Classifier.java` dosyasının Hem kayan nokta hem de 'nicelenmiş' modellerin kullanımını göstermek için [`ClassifierFloatMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierFloatMobileNet.java) ve [`ClassifierQuantizedMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java) olmak üzere iki alt sınıfı mevcuttur.
+`Classifier.java` sınıfının 'Quantized' modellerin kullanılmasını sağlayan [`ClassifierQuantizedMobileNet.java`](https://github.com/BatuhanGunes/signLanguageConverter-Android/blob/master/android/app/src/main/java/org/tensorflow/lite/examples/classification/tflite/ClassifierQuantizedMobileNet.java) adında bir alt sınıfı mevcuttur.
 
-`Classifier` sınıfı, sağlanan türe göre (kayan noktaya göre niceliklendirilmiş) uygun alt sınıfı başlatmak için kullanılan statik bir yöntem olan "create" komutunu uygular. 
+`Classifier` sınıfı, statik bir yöntem olan "create" metodunu çalıştırarak Quantized türündeki modeli çağırır.
 
 #### Model ve Yorumlayıcı
 
-Çıkarım yapmak için bir model dosyası yüklememiz ve bir yorumlayıcı başlatmamız gerekir. Bu olay, `Classifier` sınıfının 'Constructor' metodunda gerçekleştirirlir. Cihaz tipi ve iş parçacığı sayısı hakkındaki bilgiler, constructor metoduna aktarılan `Interpreter.Options`  nesnesi aracılığıyla yorumlayıcıyı yapılandırmak için kullanılır. Bir GPU, DSP (Dijital Sinyal İşlemcisi) veya NPU (Sinir İşleme Ünitesi) varsa, bu donanımdan tam olarak yararlanmak için bir `Delegate` kullanılabilir. Bu seçenekler daha fazla performans sağlayabilirken, aynı zamanda cihazın güç tüketimini attırmaktadır.
+Çıkarım yapmak için bir model dosyası yüklememiz ve bir yorumlayıcı başlatmamız gerekir. Bu olay, `Classifier` sınıfının 'Constructor' metodunda gerçekleştirirlir. Cihaz tipi ve iş parçacığı sayısı hakkındaki bilgiler, constructor metoduna aktarılan `Interpreter.Options`  nesnesi aracılığıyla yorumlayıcıyı yapılandırmak için kullanılır. Bir DSP (Dijital Sinyal İşlemcisi) veya NPU (Sinir İşleme Ünitesi) varsa, bu donanımdan tam olarak yararlanmak için bir `Delegate` kullanılabilir. Bu seçenekler daha fazla performans sağlayabilirken, aynı zamanda cihazın güç tüketimini attırmaktadır.
 
 ```java
 protected Classifier(Activity activity, Device device, int numThreads) throws
@@ -41,26 +40,21 @@ protected Classifier(Activity activity, Device device, int numThreads) throws
       nnApiDelegate = new NnApiDelegate();
       tfliteOptions.addDelegate(nnApiDelegate);
       break;
-    case GPU:
-      gpuDelegate = new GpuDelegate();
-      tfliteOptions.addDelegate(gpuDelegate);
-      break;
     case CPU:
       break;
   }
   tfliteOptions.setNumThreads(numThreads);
   tflite = new Interpreter(tfliteModel, tfliteOptions);
   labels = FileUtil.loadLabels(activity, getLabelPath());
-...
 ```
 
-Daha hızlı yükleme süreleri sunmak ve bellekteki kirli sayfaları azaltmak için model dosyasını önceden yüklemeyi ve bellek eşlemeyi gerçekleştirmek için `FileUtil.loadMappedFile` yöntemi kullanılır. Bu yöntem modeli içeren bir“ MappedByteBuffer ”döndürür.
+Daha hızlı yükleme süreleri sunmak ve bellekteki kirli sayfaları azaltmak için model dosyasını önceden yüklemeyi ve bellek eşlemeyi gerçekleştirmek için `FileUtil.loadMappedFile` metotdu kullanılır. Bu yöntem modeli içeren bir“ MappedByteBuffer ”döndürür.
 
 "MappedByteBuffer", bir "Interpreter.Options" nesnesi ile birlikte "Interpreter" yapıcısına iletilir. Bu nesne, yorumlayıcıyı yapılandırmak için kullanılabilir, örneğin iş parçacığı sayısını ayarlayarak (`.setNumThreads (1)`) veya [NNAPI] (`.addDelegate (nnApiDelegate)`) etkinleştirerek.
 
 #### İşlem Öncesi Bitmap Görüntüsü
 
-`Classifier` constructor ile giriş kameradan bitmap görüntüsünü alıyoruz, verimli işleme için bir `TensorImage` formatına dönüştürüyor ve ön işlemler yapıyoruz. Adımlar 'private loadImage' metoodunda gösterilirmektedir:
+`Classifier` constructor ile giriş kamerasından bitmap görüntüsünü alıyoruz, verimli işleme için bir `TensorImage` formatına dönüştürüyor ve ön işlemler yapıyoruz. Adımlar 'private loadImage' metoodunda gösterilirmektedir:
 
 
 ```java
@@ -81,22 +75,6 @@ private TensorImage loadImage(final Bitmap bitmap, int sensorOrientation) {
           .build();
   return imageProcessor.process(inputImageBuffer);
 }
-```
-
-Normalleştirme hariç ön yükleme işlemi `ClassifierFloatMobileNet` (nicelenmiş) ve `ClassifierQuantizedMobileNet` (Kayan nokta) modelleri için büyük ölçüde aynıdır.
-
-`ClassifierFloatMobileNet`'te normalleştirme parametreleri şu şekilde tanımlanır:
-
-```java
-private static final float IMAGE_MEAN = 127.5f;
-private static final float IMAGE_STD = 127.5f;
-```
-
-`ClassifierQuantizedMobileNet`'te normalleştirme gerekli değildir. Böylece, nomalizasyon parametreleri şu şekilde tanımlanır:
-
-```java
-private static final float IMAGE_MEAN = 0.0f;
-private static final float IMAGE_STD = 1.0f;
 ```
 
 #### Çıktı Nesnesi
@@ -123,7 +101,7 @@ outputProbabilityBuffer =
 probabilityProcessor =
     new TensorProcessor.Builder().add(getPostprocessNormalizeOp()).build();
 ```
-Nicemlenmiş modeller için, tahminleri NormalizeOp ile nicelleştirmemiz gerekir. Kayan Nokta modeli için nicemsizleştirme gerekli değildir. Daha spesifik olmak gerekirse,
+Nicemlenmiş modeller için, tahminleri NormalizeOp ile nicelleştirmemiz gerekir. Daha spesifik olmak gerekirse,
 
 `ClassifierQuantizedMobileNet`, içinde normalleştirilmiş parametreler şu şekilde tanımlanır:
 
@@ -131,13 +109,6 @@ Nicemlenmiş modeller için, tahminleri NormalizeOp ile nicelleştirmemiz gereki
 ```java
 private static final float PROBABILITY_MEAN = 0.0f;
 private static final float PROBABILITY_STD = 255.0f;
-```
-
-`ClassifierFloatMobileNet`, içinde normalleştirilmiş parametreler şu şekilde tanımlanır:
-
-```java
-private static final float PROBABILITY_MEAN = 0.0f;
-private static final float PROBABILITY_MEAN = 1.0f;
 ```
 
 #### Sonuç Çıkarımlama 
@@ -151,7 +122,7 @@ tflite.run(inputImageBuffer.getBuffer(),
 
 #### Görüntü tanımlama
 
-Doğrudan `run` çağırmak yerine, `recognizeImage` metotu kullanılır. Bir bitmap ve sensör yönelimini kabul eder, çıkarım yapar ve her biri bir etikete karşılık gelen sıralı `Recognition` örnekleri listesini döndürür. Yöntem, `MAX_RESULTS` ile sınırlı bir dizi sonuç döndürür, varsayılan olarak 3 değerindedir.
+Doğrudan `run` çağırmak yerine, `recognizeImage` metotu kullanılır. Bir bitmap ve sensör yönelimini kabul eder, çıkarım yapar ve her biri bir etikete karşılık gelen sıralı `Recognition` örnekleri listesini döndürür. Yöntem, `MAX_RESULTS` ile sınırlı bir dizi sonuç döndürür, varsayılan olarak 1 değerindedir.
 
 `Recognition`, belirli bir tanıma sonucu hakkında bilgi içeren basit bir sınıftır, buna `title` and `confidence` bilgileride dahildir. Tanımlama işlemi sonrasında değerler 0 ila 1 arasında bir değer alır. Daha sonra bu değerlere sabit olan nesneler sıralanır.
 
@@ -226,10 +197,6 @@ protected void processImage() {
                   @Override
                   public void run() {
                     showResultsInBottomSheet(results);
-                    showFrameInfo(previewWidth + "x" + previewHeight);
-                    showCropInfo(imageSizeX + "x" + imageSizeY);
-                    showCameraResolution(imageSizeX + "x" + imageSizeY);
-                    showRotationInfo(String.valueOf(sensorOrientation));
                     showInference(lastProcessingTimeMs + "ms");
                   }
                 });
@@ -249,16 +216,6 @@ private void recreateClassifier(Model model, Device device, int numThreads) {
     classifier.close();
     classifier = null;
   }
-  if (device == Device.GPU && model == Model.QUANTIZED) {
-    LOGGER.d("Not creating classifier: GPU doesn't support quantized models.");
-    runOnUiThread(
-        () -> {
-          Toast.makeText(this, "GPU does not yet supported quantized models.",
-              Toast.LENGTH_LONG)
-              .show();
-        });
-    return;
-  }
   try {
     LOGGER.d(
         "Creating classifier (model=%s, device=%s, numThreads=%d)", model,
@@ -268,4 +225,49 @@ private void recreateClassifier(Model model, Device device, int numThreads) {
     LOGGER.e(e, "Failed to create classifier.");
   }
 }
+```
+
+### Sonuçlar ile metin oluşturulması
+
+`CameraActivity` sınıfı içerisinde bulunan `showResultsInBottomSheet`metotdu içerisinde sonuçların kaydedildiği listenin verileri okunularak, gelen verinin türüne göre işlem yapılabilmektedir. Gelen veriler metnin oluşturulacağı texview alanına yazılmaktadır. Burada oluşabilicek küçük algılama hatalarının giderilmesi ve sistemin daha kararlı çalışcabilmesi için gelen verilerin doğrulanmasını sağladık.
+
+```java
+protected void showResultsInBottomSheet(List<Recognition> results) {
+    if (results != null && results.size() >= 1) {
+      Recognition recognition = results.get(0);
+      if (recognition != null) {
+        if (recognition.getTitle() != null){
+          recognitionTextView.setText(recognition.getTitle());
+
+          if (recognition.getTitle().equals("space")){
+            recognitionTextView.setText("Boşluk Bırakıldı.");
+            composed_text.setText(composed_text.getText() + " ");
+          }
+          else if (recognition.getTitle().equals("del")){
+            recognitionTextView.setText("Harf Silindi.");
+            button_delete.callOnClick();
+          }
+          else if (recognition.getTitle().equals("nothing")){
+            recognitionTextView.setText("Harf Bulunamadı.");
+            // do nothing
+          }
+          else {
+            if (recognition.getTitle() == active_latter) {
+              active_latter_number += 1;
+              if (active_latter_number >= 5) {
+                composed_text.setText(composed_text.getText() + active_latter);
+              } else {
+                //do nothing
+              }
+            } else {
+              active_latter = recognition.getTitle();
+              active_latter_number = 1;
+            }
+          }
+        }
+        if (recognition.getConfidence() != null)
+          recognitionValueTextView.setText(String.format("%.2f", (10000 * recognition.getConfidence())) + "%");
+      }
+    }
+  }
 ```
